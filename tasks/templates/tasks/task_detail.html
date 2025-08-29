@@ -1,0 +1,58 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h2>Task: {{ task.title }}</h2>
+    <p>Description: {{ task.description|safe|default:"No description" }}</p>
+    <p>Due Date: {{ task.due_date|default:"N/A" }}</p>
+    <p>Priority: {{ task.get_priority_display }}</p>
+    <p>Status: {{ task.get_status_display }}</p>
+    {% if task.category %}
+        <p>Category: {{ task.category.name }}</p>
+    {% endif %}
+    {% if task.attachment %}
+        <p>Attachment: <a href="{{ task.attachment.url }}" target="_blank">Download File</a></p>
+    {% endif %}
+
+    <h3>Subtasks</h3>
+    <ul>
+        {% for subtask in task.subtasks.all %}
+            <li>
+                <input type="checkbox" {% if subtask.complete %}checked{% endif %} disabled>
+                <span style="text-decoration: {% if subtask.complete %}line-through{% endif %};">{{ subtask.title }}</span>
+            </li>
+        {% empty %}
+            <li>No subtasks for this task.</li>
+        {% endfor %}
+    </ul>
+
+    <p>
+        <a href="{% url 'update_task' task.id %}">Edit Task</a> |
+        {% if task.is_archived %}
+            <a href="{% url 'unarchive_task' task.id %}">Unarchive Task</a> |
+        {% else %}
+            <a href="{% url 'archive_task' task.id %}">Archive Task</a> |
+        {% endif %}
+        <a href="{% url 'delete_task' task.id %}">Delete Task</a> |
+        <a href="{% url 'task_list' %}">Back to Task List</a>
+    </p>
+
+    <h3>Comments</h3>
+    <div class="comments-section">
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="comment-meta"><strong>{{ comment.user.username }}</strong> on {{ comment.created_at|date:"M d, Y H:i" }}</p>
+                <p class="comment-content">{{ comment.content }}</p>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    <h4>Add a Comment</h4>
+    <form method="post" action="{% url 'add_comment' task.id %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+{% endblock %}

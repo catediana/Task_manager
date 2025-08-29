@@ -1,0 +1,34 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <h2>Update Task</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button type="submit">Update Task</button>
+    </form>
+
+    <h3>Subtasks</h3>
+    <ul>
+        {% for subtask in subtasks %}
+            <li>
+                <input type="checkbox" name="subtask-{{ subtask.id }}-complete" {% if subtask.complete %}checked{% endif %}>
+                <span style="text-decoration: {% if subtask.complete %}line-through{% endif %};">{{ subtask.title }}</span>
+                <a href="{% url 'toggle_subtask_complete' subtask.id %}">Toggle Complete</a>
+                <a href="{% url 'delete_subtask' subtask.id %}">Delete</a>
+            </li>
+        {% empty %}
+            <li>No subtasks yet.</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Add New Subtask</h4>
+    <form method="post" action="{% url 'add_subtask' task.id %}">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="New Subtask Title" required>
+        <button type="submit">Add Subtask</button>
+    </form>
+
+    <p><a href="{% url 'task_list' %}">Back to Task List</a></p>
+{% endblock %}

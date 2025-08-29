@@ -1,0 +1,11 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <h2>Update Category</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Category</button>
+    </form>
+    <p><a href="{% url 'category_list' %}">Back to Categories</a></p>
+{% endblock %}

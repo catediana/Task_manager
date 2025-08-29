@@ -1,0 +1,166 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h2>My Tasks</h2>
+    <a href="{% url 'add_task' %}">Add New Task</a> | <a href="{% url 'add_category' %}">Add New Category</a>
+
+    <div class="task-controls">
+        <form method="get" action="{% url 'task_list' %}">
+            <input type="text" name="search" placeholder="Search tasks..." value="{{ search_query|default:'' }}">
+            <select name="status">
+                <option value="all">All Statuses</option>
+                {% for choice_value, choice_label in task_status_choices %}
+                    <option value="{{ choice_value }}" {% if status_filter == choice_value %}selected{% endif %}>{{ choice_label }}</option>
+                {% endfor %}
+            </select>
+            <select name="priority">
+                <option value="all">All Priorities</option>
+                {% for choice_value, choice_label in task_priority_choices %}
+                    <option value="{{ choice_value }}" {% if priority_filter == choice_value %}selected{% endif %}>{{ choice_label }}</option>
+                {% endfor %}
+            </select>
+            <select name="category">
+                <option value="all">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category_filter|floatformat:"0" == category.id|floatformat:"0" %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <select name="due_date_filter">
+                <option value="all" {% if due_date_filter == 'all' %}selected{% endif %}>All Due Dates</option>
+                <option value="overdue" {% if due_date_filter == 'overdue' %}selected{% endif %}>Overdue</option>
+                <option value="today" {% if due_date_filter == 'today' %}selected{% endif %}>Today</option>
+                <option value="this_week" {% if due_date_filter == 'this_week' %}selected{% endif %}>This Week</option>
+                <option value="next_week" {% if due_date_filter == 'next_week' %}selected{% endif %}>Next Week</option>
+            </select>
+            <select name="sort_by">
+                <option value="-created" {% if sort_by == '-created' %}selected{% endif %}>Newest</option>
+                <option value="created" {% if sort_by == 'created' %}selected{% endif %}>Oldest</option>
+                <option value="due_date" {% if sort_by == 'due_date' %}selected{% endif %}>Due Date (Asc)</option>
+                <option value="-due_date" {% if sort_by == '-due_date' %}selected{% endif %}>Due Date (Desc)</option>
+                <option value="priority" {% if sort_by == 'priority' %}selected{% endif %}>Priority (Asc)</option>
+                <option value="-priority" {% if sort_by == '-priority' %}selected{% endif %}>Priority (Desc)</option>
+            </select>
+            <button type="submit">Apply</button>
+            <label for="show-archived-checkbox" style="margin-left: 15px;">
+                <input type="checkbox" id="show-archived-checkbox" name="show_archived" value="true" {% if show_archived %}checked{% endif %} onchange="this.form.submit();">
+                Show Archived
+            </label>
+        </form>
+    </div>
+
+    <ul id="task-list-sortable">
+        {% for task in tasks %}
+            <li class="task-item" data-task-id="{{ task.id }}">
+                <div>
+                    <strong><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a></strong>
+                    {% if task.category %}<span class="task-category">({{ task.category.name }})</span>{% endif %}
+                </div>
+                <p>{{ task.description|safe|default:"No description" }}</p>
+                {% if task.attachment %}
+                    <p>Attachment: <a href="{{ task.attachment.url }}" target="_blank">Download File</a></p>
+                {% endif %}
+                <p>Due: {{ task.due_date|default:"N/A" }} | Priority: {{ task.get_priority_display }}</p>
+                <p>
+                    Status: <select class="task-status-dropdown">
+                        {% for choice_value, choice_label in task_status_choices %}
+                            <option value="{{ choice_value }}" {% if task.status == choice_value %}selected{% endif %}>{{ choice_label }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <div>
+                    <a href="{% url 'task_detail' task.id %}">View Details</a>
+                    {% if task.is_archived %}
+                        <a href="{% url 'unarchive_task' task.id %}">Unarchive</a>
+                    {% else %}
+                        <a href="{% url 'archive_task' task.id %}">Archive</a>
+                    {% endif %}
+                    <a href="{% url 'delete_task' task.id %}">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>No tasks yet.</li>
+        {% endfor %}
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // AJAX for task status update
+            $('.task-status-dropdown').change(function() {
+                var dropdown = $(this);
+                var taskId = dropdown.closest('.task-item').data('task-id');
+                var newStatus = dropdown.val();
+                var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+                $.ajax({
+                    url: '{% url "update_task_status_ajax" %}',
+                    type: 'POST',
+                    data: {
+                        'task_id': taskId,
+                        'status': newStatus,
+                        'csrfmiddlewaretoken': csrfToken
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            console.log('Task status updated successfully!');
+                        } else {
+                            alert('Error updating task status: ' + response.error);
+                            dropdown.val(dropdown.data('original-status')); // Revert on error
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An AJAX error occurred: ' + error);
+                        dropdown.val(dropdown.data('original-status')); // Revert on error
+                    }
+                });
+            });
+
+            $('.task-status-dropdown').each(function() {
+                $(this).data('original-status', $(this).val());
+            });
+
+            // Sortable.js for task reordering
+            var el = document.getElementById('task-list-sortable');
+            var sortable = Sortable.create(el, {
+                animation: 150,
+                onEnd: function (evt) {
+                    var itemEl = evt.item;  // dragged HTMLElement
+                    var newIndex = evt.newIndex;
+                    var oldIndex = evt.oldIndex;
+
+                    if (newIndex !== oldIndex) {
+                        var taskIds = [];
+                        $('#task-list-sortable .task-item').each(function() {
+                            taskIds.push($(this).data('task-id'));
+                        });
+
+                        var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+                        $.ajax({
+                            url: '{% url "reorder_tasks_ajax" %}',
+                            type: 'POST',
+                            data: {
+                                'task_ids': taskIds,
+                                'csrfmiddlewaretoken': csrfToken
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    console.log('Tasks reordered successfully!');
+                                } else {
+                                    alert('Error reordering tasks: ' + response.error);
+                                    sortable.sort(sortable.toArray()); // Revert visual order on error
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                alert('An AJAX error occurred during reordering: ' + error);
+                                sortable.sort(sortable.toArray()); // Revert visual order on error
+                            }
+                        });
+                    }
+                },
+            });
+        });
+    </script>
+{% endblock %}
