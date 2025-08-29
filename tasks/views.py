@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from datetime import date, timedelta
 
-# Create your views here.
+
 
 def register(request):
     if request.method == "POST":
@@ -121,8 +121,8 @@ def task_list(request):
         end_of_next_week = start_of_next_week + timedelta(days=6)
         tasks = tasks.filter(due_date__range=[start_of_next_week, end_of_next_week])
 
-    # Sorting (already handled by model Meta, but can be overridden by GET param)
-    sort_by = request.GET.get('sort_by', 'position') # Default sort by position
+    # Default sort by position
+    sort_by = request.GET.get('sort_by', 'position') 
     tasks = tasks.order_by(sort_by)
 
     categories = Category.objects.filter(user=request.user)
