@@ -175,3 +175,136 @@ ul li a[href*="delete"] {
 ul li a[href*="delete"]:hover {
     background-color: #c82333;
 }
+
+/* Reminder Styles */
+.reminders-section {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.reminder {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.reminder h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.reminder ul {
+    list-style: none;
+    padding: 0;
+}
+
+.reminder li {
+    margin-bottom: 5px;
+}
+
+.reminder li a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.overdue {
+    background-color: #e74c3c; /* Red */
+}
+
+.due-today {
+    background-color: #f39c12; /* Orange */
+}
+
+.due-soon {
+    background-color: #3498db; /* Blue */
+}
+
+.due-tomorrow {
+    background-color: #9b59b6; /* Purple for due tomorrow */
+}
+
+/* Responsive Design */
+
+/* Mobile devices (max-width: 600px) */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        margin: 15px auto;
+        padding: 15px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .navbar a, .navbar span {
+        margin: 5px 0;
+        font-size: 1em;
+    }
+
+    form input[type="text"],
+    form input[type="password"],
+    form input[type="email"],
+    form input[type="date"],
+    form textarea,
+    form select {
+        width: calc(100% - 20px);
+        padding: 8px;
+    }
+
+    .task-controls form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .task-controls form select, .task-controls form input[type="text"] {
+        width: 100%;
+    }
+
+    .task-item {
+        padding: 10px;
+    }
+
+    .task-item div a, .task-item div button {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
+
+/* Tablet devices (max-width: 900px) */
+@media (max-width: 900px) {
+    .container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .navbar a, .navbar span {
+        margin: 0 10px;
+        font-size: 1em;
+    }
+
+    .task-controls form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .task-controls form > * {
+        flex: 1 1 auto; /* Allow items to grow and shrink */
+        min-width: 120px; /* Minimum width before wrapping */
+    }
+
+    .task-controls form button {
+        flex: 0 0 auto;
+    }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
