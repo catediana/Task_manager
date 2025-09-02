@@ -35,12 +35,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-1k_f_kkoq97)2o8tbxosu9ope$
 DEBUG = env.bool("DEBUG", default=False)
 
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost","https://task-manager-13x3.onrender.com/"])
 
-#  Render hostname 
-render_host = os.getenv('RENDER_EXTERNAL_HOSTNAME')
-if render_host and render_host not in ALLOWED_HOSTS:
-    ALLOWED_HOSTS.append(render_host)
 
 
 # Application definition
