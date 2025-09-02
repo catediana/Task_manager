@@ -35,10 +35,13 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-1k_f_kkoq97)2o8tbxosu9ope$
 DEBUG = env.bool("DEBUG", default=False)
 
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost","https://task-manager-13x3.onrender.com/"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost","task-manager-13x3.onrender.com"])
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://task-manager-13x3.onrender.com',
+]
 
-
+ 
 # Application definition
 
 INSTALLED_APPS = [
