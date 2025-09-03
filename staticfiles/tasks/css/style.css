@@ -4,8 +4,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0f2f7; /* Light blue background */
-    color: #333;
+    background: linear-gradient(135deg, #1a0106 0%, #79031D 100%); /* Darker gradient background */
+    background-attachment: fixed; /* Keep background fixed during scroll */
+    color: #F5F7F7; /* Light text for dark background */
     line-height: 1.6;
 }
 
@@ -13,54 +14,73 @@ body {
     width: 85%;
     max-width: 960px;
     margin: 30px auto;
-    background-color: #ffffff;
+    background: rgba(0, 4, 7, 0.5); /* Semi-transparent dark container */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    color: #F5F7F7; /* Light text for container */
 }
 
 h1, h2 {
-    color: #0056b3;
+    color: #EDB518; /* Gold accent for headings */
     text-align: center;
     margin-bottom: 25px;
 }
 
 a {
-    color: #007bff;
+    color: #EDB518; /* Gold accent for links */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
     text-decoration: underline;
-    color: #0056b3;
+    color: #F5F7F7; /* Lighter gold on hover */
 }
 
+/* Authenticated Navbar (for base.html) */
 .navbar {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 0;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: rgba(121, 3, 29, 0.8); /* Darker red, semi-transparent */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #F5F7F7; /* Light text */
+    padding: 12px 20px;
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.navbar a {
-    color: white;
-    margin: 0 18px;
+.navbar .logo {
+    margin-right: auto; /* Push other items to the right */
+}
+
+.navbar .logo a {
+    color: #EDB518;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar a,
+.navbar span {
+    color: #F5F7F7;
+    margin: 0 15px;
     font-weight: bold;
     font-size: 1.1em;
 }
 
 .navbar a:hover {
-    color: #e0f2f7;
+    color: #EDB518;
     text-decoration: none;
 }
 
-.navbar span {
-    margin: 0 18px;
-    font-size: 1.1em;
+.navbar img {
+    margin-right: 10px; /* Space between image and username */
 }
 
+/* Messages */
 .message {
     padding: 12px;
     margin-bottom: 15px;
@@ -70,17 +90,18 @@ a:hover {
 }
 
 .message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: rgba(144, 238, 144, 0.2); /* Light green semi-transparent */
+    color: #90ee90;
+    border: 1px solid rgba(144, 238, 144, 0.3);
 }
 
 .message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+    background-color: rgba(255, 107, 107, 0.2); /* Red semi-transparent */
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
+/* Forms */
 form p {
     margin-bottom: 15px;
 }
@@ -89,6 +110,7 @@ form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #f1f1f1; /* Light label text */
 }
 
 form input[type="text"],
@@ -100,9 +122,12 @@ form select {
     width: calc(100% - 22px);
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light, semi-transparent border */
     border-radius: 5px;
     font-size: 1em;
+    background: rgba(0, 4, 7, 0.5); /* Dark semi-transparent input */
+    color: #F5F7F7; /* Light input text */
+    outline: none;
 }
 
 form textarea {
@@ -111,29 +136,33 @@ form textarea {
 }
 
 form button[type="submit"] {
-    background-color: #28a745; /* Green for submit */
-    color: white;
+    background-color: #EDB518; /* Gold for submit button */
+    color: #000407; /* Dark text */
     padding: 12px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1em;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     margin-top: 15px;
 }
 
 form button[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #79031D; /* Darker red on hover */
+    color: #F5F7F7; /* Light text on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Lists (Task/Category List) */
 ul {
     list-style: none;
     padding: 0;
 }
 
 ul li {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.05); /* Very subtle light for list items */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Light, semi-transparent border */
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 10px;
@@ -143,40 +172,42 @@ ul li {
 }
 
 ul li strong {
-    color: #0056b3;
+    color: #EDB518; /* Gold accent for strong text */
     font-size: 1.2em;
 }
 
 ul li p {
     margin: 0;
-    color: #555;
+    color: #f1f1f1; /* Light paragraph text */
 }
 
 ul li a {
     margin-right: 10px;
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: #007bff;
-    color: white;
+    background-color: #EDB518; /* Gold for links/buttons in lists */
+    color: #000407; /* Dark text */
     text-decoration: none;
-    align-self: flex-start; /* Align links to the start of the flex item */
+    align-self: flex-start;
 }
 
 ul li a:hover {
-    background-color: #0056b3;
+    background-color: #79031D; /* Darker red on hover */
+    color: #F5F7F7;
     text-decoration: none;
 }
 
 /* Specific styles for Delete button */
 ul li a[href*="delete"] {
     background-color: #dc3545; /* Red for delete */
+    color: #F5F7F7;
 }
 
 ul li a[href*="delete"]:hover {
     background-color: #c82333;
 }
 
-/* Reminder Styles */
+/* Reminder Styles (Adjusted for consistency) */
 .reminders-section {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -186,13 +217,16 @@ ul li a[href*="delete"]:hover {
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 5px;
-    color: #fff;
+    color: #F5F7F7;
+    background: rgba(0, 4, 7, 0.5); /* Consistent dark semi-transparent background */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .reminder h3 {
     margin-top: 0;
     margin-bottom: 10px;
-    color: #fff;
+    color: #EDB518; /* Gold accent for reminder headings */
 }
 
 .reminder ul {
@@ -202,27 +236,345 @@ ul li a[href*="delete"]:hover {
 
 .reminder li {
     margin-bottom: 5px;
+    background: transparent; /* Transparent list items within reminders */
+    border: none;
+    padding: 0;
 }
 
 .reminder li a {
-    color: #fff;
+    color: #F5F7F7; /* Light text for reminder links */
     text-decoration: underline;
+    background: transparent; /* Transparent background for links */
+    padding: 0;
+}
+
+.reminder li a:hover {
+    color: #EDB518;
 }
 
 .overdue {
-    background-color: #e74c3c; /* Red */
+    background-color: rgba(231, 76, 60, 0.6); /* Red with transparency */
 }
 
 .due-today {
-    background-color: #f39c12; /* Orange */
+    background-color: rgba(243, 156, 18, 0.6); /* Orange with transparency */
 }
 
 .due-soon {
-    background-color: #3498db; /* Blue */
+    background-color: rgba(52, 152, 219, 0.6); /* Blue with transparency */
 }
 
 .due-tomorrow {
-    background-color: #9b59b6; /* Purple for due tomorrow */
+    background-color: rgba(155, 89, 182, 0.6); /* Purple with transparency */
+}
+
+/* Existing dashboard styles, updated for consistency */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Default for smaller screens */
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.summary-section h2 {
+    color: #EDB518; /* Gold accent for headings */
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: rgba(0, 4, 7, 0.5); /* Semi-transparent dark card */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    color: #F5F7F7;
+    text-align: center;
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+    color: #EDB518;
+}
+
+.card p {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #F5F7F7;
+}
+
+.reminders-section h2, .quick-actions h2 {
+    color: #EDB518;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.task-list {
+    background: rgba(0, 4, 7, 0.5); /* Dark, more transparent */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    color: #F5F7F7;
+    margin-bottom: 1.5rem;
+}
+
+.task-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.task-list li {
+    background: rgba(255, 255, 255, 0.05); /* Very subtle light for list items */
+    margin-bottom: 0.5rem;
+    padding: 0.8rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-list li a {
+    color: #EDB518;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.task-list li a:hover {
+    text-decoration: underline;
+}
+
+.task-list .due-date {
+    font-size: 0.8em;
+    color: #ddd;
+}
+
+/*------------------------------------*\
+  #AUTHENTICATION FORMS STYLES
+\*------------------------------------*/
+
+/* Wrapper for auth forms to center them */
+.auth-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 12rem); /* Adjust as needed */
+}
+
+/* Base style for login/register containers (glass panel effect) */
+.auth-container {
+    background: rgba(121, 3, 29, 0.75); /* Darker red, semi-transparent */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 360px;
+    text-align: center;
+    color: #F5F7F7; /* Light text */
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.auth-container h1 {
+    margin-bottom: 1.5rem;
+    color: #F5F7F7; /* Light text */
+}
+
+.auth-container label {
+    display: block;
+    text-align: left;
+    margin: 0.5rem 0 0.2rem;
+    font-size: 0.9rem;
+    color: #f1f1f1; /* Slightly lighter than main text */
+}
+
+.auth-container input[type="text"],
+.auth-container input[type="email"],
+.auth-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 0.4rem 0 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: rgba(0, 4, 7, 0.5); /* Dark, semi-transparent input background */
+    color: #F5F7F7; /* Light text */
+    outline: none;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.auth-container input::placeholder {
+    color: #ddd; /* Light placeholder text */
+}
+
+/* Password strength meter styles */
+#password-strength-bar {
+    height: 8px;
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+    background-color: transparent; /* Default transparent */
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 0.2rem;
+}
+
+.strength-weak { background-color: #ff6b6b; width: 33%; }
+.strength-moderate { background-color: #f7c94c; width: 66%; }
+.strength-strong { background-color: #90ee90; width: 100%; }
+
+/* Checkbox container for "Show Password" */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+/* Buttons within auth forms */
+.auth-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #EDB518; /* Accent color for buttons */
+    color: #000407; /* Dark text for buttons */
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-container button[type="submit"]:hover {
+    background: #79031D; /* Darker red on hover */
+    color: #F5F7F7; /* Light text on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Message display (success/error) within auth forms */
+.auth-container .message {
+    margin-top: 1rem;
+    font-size: 14px;
+}
+
+.auth-container .message.success {
+    color: #90ee90; /* Green for success */
+}
+
+.auth-container .message.error {
+    color: #ff6b6b; /* Red for error */
+}
+
+/* Auth links (e.g., "Already have an account?") */
+.auth-link {
+    margin-top: 1rem;
+    color: #f1f1f1;
+    font-size: 0.9rem;
+}
+
+.auth-link a {
+    color: #EDB518; /* Accent color for links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+.field-error {
+    color: #ff6b6b; /* Red for field errors */
+    font-size: 0.8rem;
+    margin-top: -0.8rem;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+/*------------------------------------*\
+  #DASHBOARD STYLES
+\*------------------------------------*/
+
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.quick-actions .btn {
+    background: #EDB518;
+    color: #000407;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.quick-actions .btn:hover {
+    background: #79031D;
+    color: #F5F7F7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Secondary Button Style (Blue Box) */
+.btn-secondary {
+    background-color: #3498db; /* A clear, friendly blue */
+    color: #FFFFFF; /* White text for contrast */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block; /* Allows padding and width */
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background-color: #2980b9; /* Slightly darker blue on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar Links as Buttons */
+.navbar a.navbar-link-btn {
+    background: rgba(255, 255, 255, 0.1) !important; /* Subtle transparent background */
+    padding: 8px 15px !important;
+    border-radius: 5px;
+    margin: 0 8px; /* Adjust spacing between nav items */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #F5F7F7 !important; /* Default light text */
+    display: inline-block; /* Ensures padding and background render correctly */
+}
+
+.navbar a.navbar-link-btn:hover {
+    background-color: rgba(235, 181, 24, 0.2) !important; /* Subtle gold hover effect */
+    color: #EDB518 !important; /* Gold text on hover */
+    text-decoration: none !important;
 }
 
 /* Responsive Design */
@@ -276,6 +628,11 @@ ul li a[href*="delete"]:hover {
 }
 
 /* Tablet devices (max-width: 900px) */
+@media (min-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr 2fr;
+    }
+}
 @media (max-width: 900px) {
     .container {
         width: 90%;

@@ -1,0 +1,115 @@
+{% extends 'tasks/base_public.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <section class="summary-section">
+        <h2>Your Progress at a Glance</h2>
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Total Tasks</h3>
+                 <ul>
+                     <li>{{ total_tasks }}</li>
+                 </ul>
+            </div>
+            <div class="card">
+                <h3>Pending</h3>
+                 <ul>
+                     <li>{{ pending_tasks_count }}</li>
+                 </ul>
+            </div>
+            <div class="card">
+                <h3>In Progress</h3>
+                 <ul>
+                     <li>{{ in_progress_tasks_count }}</li>
+                 </ul>
+            </div>
+            <div class="card">
+                <h3>Completed</h3>
+                 <ul>
+                     <li>{{ completed_tasks_count }}</li>
+                 </ul>
+            </div>
+            <div class="card">
+                <h3>Archived</h3>
+                 <ul>
+                     <li>{{ archived_tasks_count }}</li>
+                 </ul>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <a href="{% url 'add_task' %}" class="btn-secondary"><button type="submit">Add New Task</button></a>
+            <a href="{% url 'add_category' %}" class="btn-secondary"><button type="submit"> Add New Category</button></a>
+        </div>
+    </section>
+
+    <section class="reminders-section">
+        <h2>Task Reminders</h2>
+
+        {% if overdue_tasks %}
+        <div class="task-list">
+            <h3><span class="overdue">Overdue Tasks</span></h3>
+            <ul>
+                {% for task in overdue_tasks %}
+                    <li>
+                        <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a>
+                        <span class="due-date">Due: {{ task.due_date|date:"M d, Y" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if tasks_due_today %}
+        <div class="task-list">
+            <h3><span class="due-today">Due Today</span></h3>
+            <ul>
+                {% for task in tasks_due_today %}
+                    <li>
+                        <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a>
+                        <span class="due-date">Priority: {{ task.get_priority_display }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if tasks_due_tomorrow %}
+        <div class="task-list">
+            <h3><span class="due-soon">Due Tomorrow</span></h3>
+            <ul>
+                {% for task in tasks_due_tomorrow %}
+                    <li>
+                        <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a>
+                        <span class="due-date">Priority: {{ task.get_priority_display }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if tasks_due_soon %}
+        <div class="task-list">
+            <h3><span class="due-soon">Due Within 3 Days</span></h3>
+            <ul>
+                {% for task in tasks_due_soon %}
+                    <li>
+                        <a href="{% url 'task_detail' task.id %}">{{ task.title }}</a>
+                        <span class="due-date">Due: {{ task.due_date|date:"M d, Y" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if not overdue_tasks and not tasks_due_today and not tasks_due_tomorrow and not tasks_due_soon %}
+        <div class="task-list">
+            <p>No urgent tasks! You're all caught up.</p>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

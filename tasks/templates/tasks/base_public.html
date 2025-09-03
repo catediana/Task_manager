@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+    <meta name="csrf_token" content="{{ csrf_token }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="{% url 'home' %}"><button type="submit">Task Manager</button></a>
+            </div>
+          
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Task Manager | <a href="#">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

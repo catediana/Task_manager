@@ -1,33 +1,109 @@
-{% extends 'tasks/base.html' %}
+{% extends 'tasks/base_public.html' %}
+{% load static %}
 
 {% block content %}
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {% if form.non_field_errors %}
-            <div class="alert alert-danger">
-                {% for error in form.non_field_errors %}
-                    {{ error }}
-                {% endfor %}
+<div class="auth-form-wrapper">
+    <div class="auth-container">
+        <h1>Login</h1>
+        <form id="loginForm" method="post">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="show-password-toggle">
+                <label for="show-password-toggle">Show Password</label>
             </div>
-        {% endif %}
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    <ul class="errorlist">
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                {% if field.help_text %}
-                    <p class="helptext">{{ field.help_text }}</p>
-                {% endif %}
-            </p>
-        {% endfor %}
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+
+            <button type="submit">Login</button>
+        </form>
+        <p class="message" id="result"></p>
+        <p class="auth-link" style="margin-bottom: 0.5rem;">
+            <a href="#">Forgot Password?</a>
+        </p>
+        <p class="auth-link">
+            Don't have an account? <a href="{% url 'register' %}"><button type="submit">Register Now</button></a>
+        </p>
+    </div>
+</div>
+
+<script>
+    // --- New password toggle logic ---
+    const passwordInput = document.getElementById("password");
+    const showPasswordCheckbox = document.getElementById("show-password-toggle");
+
+    showPasswordCheckbox.addEventListener("change", function() {
+        if (this.checked) {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    });
+
+    // --- Form submission logic with loading state and better error handling ---
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const result = document.getElementById("result");
+        const submitButton = this.querySelector('button[type="submit"]');
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Logging In...";
+        result.textContent = "";
+
+        const csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+
+        try {
+            const response = await fetch("/api/login/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "X-CSRFToken": csrfToken },
+                body: JSON.stringify({
+                    username: document.getElementById("username").value,
+                    password: document.getElementById("password").value
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                result.textContent = data.message || "Login successful!";
+                result.className = "message success";
+                localStorage.setItem("token", data.token);
+
+                // Check for user profile to determine next page
+                const profileResponse = await fetch("/api/user-profile/", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Token ${data.token}`
+                    }
+                });
+
+                if (profileResponse.ok) {
+                    // Profile exists, redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = "{% url 'dashboard' %}";
+                    }, 1500);
+                } else {
+                    // No profile, redirect to onboarding page
+                    setTimeout(() => {
+                        window.location.href = "{% url 'onboarding' %}";
+                    }, 1500);
+                }
+            } else {
+                submitButton.disabled = false;
+                submitButton.textContent = "Login";
+                result.textContent = data.non_field_errors?.[0] || "Invalid credentials!";
+                result.className = "message error";
+            }
+        } catch (error) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Login";
+            result.textContent = "Network error. Please try again.";
+            result.className = "message error";
+        }
+    });
+</script>
 {% endblock %}

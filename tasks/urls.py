@@ -1,11 +1,22 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from . import views, api # Import api_views as api
 
 urlpatterns = [
-    path("register/", views.register, name="register"),
-    path("login/", views.user_login, name="user_login"),
-    path("logout/", views.user_logout, name="user_logout"),
-    path('', views.task_list, name='task_list'),
+    path("", views.home, name="home"),  # Public landing page
+    path("register/", views.register_view, name="register"), # Registration page
+    path("login/", views.login_view, name="login"), # Login page
+    path("logout/", views.logout_view, name="logout"),
+
+    # API Endpoints
+    path("api/register/", api.RegisterAPIView.as_view(), name="api_register"),
+    path("api/login/", api.LoginAPIView.as_view(), name="api_login"),
+    path("api/user-profile/", api.user_profile_api, name="api_user_profile"),
+
+    # Authenticated pages (placeholders for now)
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('onboarding/', views.onboarding, name='onboarding'),
+
+    path('tasks/', views.task_list, name='task_list'),
     path('add/', views.add_task, name='add_task'),
     path('task/<int:task_id>/detail/', views.task_detail, name='task_detail'),
     path('task/<int:task_id>/update/', views.update_task, name='update_task'),

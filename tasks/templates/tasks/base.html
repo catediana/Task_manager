@@ -12,6 +12,9 @@
 </head>
 <body>
     <nav class="navbar">
+        <div class="logo">
+            <a href="{% url 'home' %}"><button type="submit">Task Manager</button></a>
+        </div>
         {% if user.is_authenticated %}
             {% with user.userprofile as profile %}
                 {% if profile.profile_picture %}
@@ -21,13 +24,14 @@
                 {% endif %}
             {% endwith %}
             <span>Hello, {{ user.username }}!</span>
-            <a href="{% url 'task_list' %}">Tasks</a>
-            <a href="{% url 'category_list' %}">Categories</a>
-            <a href="{% url 'profile_settings' %}">Profile Settings</a>
-            <a href="{% url 'user_logout' %}">Logout</a>
+            <a href="{% url 'dashboard' %}" class="navbar-link-btn">Dashboard</a>
+            <a href="{% url 'task_list' %}" class="navbar-link-btn">Tasks</a>
+            <a href="{% url 'category_list' %}" class="navbar-link-btn">Categories</a>
+            <a href="{% url 'profile_settings' %}" class="navbar-link-btn">Profile Settings</a>
+            <a href="{% url 'logout' %}" class="navbar-link-btn">Logout</a>
         {% else %}
-            <a href="{% url 'user_login' %}">Login</a>
-            <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'login' %}" class="navbar-link-btn">Login</a>
+            <a href="{% url 'register' %}" class="navbar-link-btn">Register</a>
         {% endif %}
     </nav>
     <div class="container">

@@ -8,36 +8,79 @@ from django.db.models import Q
 from django.http import JsonResponse
 from datetime import date, timedelta
 
+def home(request):
+    return render(request, "tasks/home.html")
 
+def register_view(request):
+    return render(request, "tasks/register.html")
 
-def register(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect("task_list")  # Redirect to task list after registration
-    else:
-        form = RegisterForm()
-    return render(request, "tasks/register.html", {"form": form})
+def login_view(request):
+    return render(request, "tasks/login.html")
 
-def user_login(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("task_list") # Redirect to task list after login
-    else:
-        form = AuthenticationForm()
-    return render(request, "tasks/login.html", {"form": form})
-
-def user_logout(request):
+def logout_view(request):
     logout(request)
-    return redirect("user_login") # Redirect to login page after logout
+    return redirect("home") # Redirect to home page after logout
+
+@login_required
+def dashboard(request):
+    user = request.user
+    today = date.today()
+    tomorrow = today + timedelta(days=1)
+    three_days_from_now = today + timedelta(days=3)
+
+    # Task counts
+    total_tasks = Task.objects.filter(user=user, is_archived=False).count()
+    pending_tasks_count = Task.objects.filter(user=user, status='pending', is_archived=False).count()
+    in_progress_tasks_count = Task.objects.filter(user=user, status='in_progress', is_archived=False).count()
+    completed_tasks_count = Task.objects.filter(user=user, status='complete', is_archived=False).count()
+    archived_tasks_count = Task.objects.filter(user=user, is_archived=True).count()
+
+    # Task reminders
+    overdue_tasks = Task.objects.filter(
+        user=user,
+        due_date__lt=today,
+        status__in=['pending', 'in_progress'],
+        is_archived=False
+    ).order_by('due_date')
+
+    tasks_due_today = Task.objects.filter(
+        user=user,
+        due_date=today,
+        status__in=['pending', 'in_progress'],
+        is_archived=False
+    ).order_by('priority')
+
+    tasks_due_tomorrow = Task.objects.filter(
+        user=user,
+        due_date=tomorrow,
+        status__in=['pending', 'in_progress'],
+        is_archived=False
+    ).order_by('priority')
+
+    tasks_due_soon = Task.objects.filter(
+        user=user,
+        due_date__gt=tomorrow,
+        due_date__lte=three_days_from_now,
+        status__in=['pending', 'in_progress'],
+        is_archived=False
+    ).order_by('due_date')
+
+    context = {
+        'total_tasks': total_tasks,
+        'pending_tasks_count': pending_tasks_count,
+        'in_progress_tasks_count': in_progress_tasks_count,
+        'completed_tasks_count': completed_tasks_count,
+        'archived_tasks_count': archived_tasks_count,
+        'overdue_tasks': overdue_tasks,
+        'tasks_due_today': tasks_due_today,
+        'tasks_due_tomorrow': tasks_due_tomorrow,
+        'tasks_due_soon': tasks_due_soon,
+    }
+    return render(request, 'tasks/dashboard.html', context)
+
+@login_required
+def onboarding(request):
+    return render(request, 'tasks/onboarding.html')
 
 @login_required
 def task_list(request):

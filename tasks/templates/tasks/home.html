@@ -1,0 +1,27 @@
+{% extends 'tasks/base_public.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="hero">
+        <h2>Organize Your Tasks Efficiently</h2>
+        <p>Track deadlines, prioritize your work, and boost your productivity.</p>
+        <a href="{% url 'register' %}" class="btn-secondary"><button type="submit">Get Started</button></a>
+    </section>
+
+    <section>
+        <h3>Why Use This App?</h3>
+        <ul>
+            <li> You'll have Overdue task alerts to always stay on track</li>
+            <li>Flexible task sorting and filtering</li>
+            <li> Have a chance to manage subtasks and comments</li>
+            <li> You'll get secure user authentication and profile management</li>
+        </ul>
+    </section>
+
+  
+
+    <section class="glass-panel">
+        <h2>Ready to start managing your tasks?</h2>
+        <a href="{% url 'register' %}" class="btn-secondary"><button type="submit">Join Now</button></a>
+    </section>
+{% endblock %}

@@ -1,33 +1,177 @@
-{% extends 'tasks/base.html' %}
+{% extends 'tasks/base_public.html' %}
+{% load static %}
 
 {% block content %}
-    <h2>Register</h2>
-    <form method="post">
-        {% csrf_token %}
-        {% if form.non_field_errors %}
-            <div class="alert alert-danger">
-                {% for error in form.non_field_errors %}
-                    {{ error }}
-                {% endfor %}
+<div class="auth-form-wrapper">
+    <div class="auth-container">
+        <h1>Create Account</h1>
+        <form id="registerForm" method="post">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <div id="password-strength-bar"></div>
+            <div id="password-strength-text" class="strength-text"></div>
+
+            <label for="password_confirm">Confirm Password</label>
+            <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm Password" required>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="show-password-toggle">
+                <label for="show-password-toggle">Show Passwords</label>
             </div>
-        {% endif %}
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    <ul class="errorlist">
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                {% if field.help_text %}
-                    <p class="helptext">{{ field.help_text }}</p>
-                {% endif %}
-            </p>
-        {% endfor %}
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'user_login' %}">Login here</a></p>
+
+            <button type="submit">Register</button>
+        </form>
+        <p class="message" id="result"></p>
+        <p class="auth-link">
+            Already have an account? <a href="{% url 'login' %}"><button type="submit">Login Here</button></a>
+        </p>
+    </div>
+</div>
+
+<script>
+    // --- New password toggle logic ---
+    const passwordInput = document.getElementById("password");
+    const passwordConfirmInput = document.getElementById("password_confirm");
+    const showPasswordCheckbox = document.getElementById("show-password-toggle");
+
+    showPasswordCheckbox.addEventListener("change", function() {
+        if (this.checked) {
+            passwordInput.type = "text";
+            passwordConfirmInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+            passwordConfirmInput.type = "password";
+        }
+    });
+
+    // --- New password strength meter logic ---
+    const strengthBar = document.getElementById("password-strength-bar");
+    const strengthText = document.getElementById("password-strength-text");
+
+    passwordInput.addEventListener("input", function() {
+        const password = this.value;
+        let strength = 0;
+        if (password.length > 0) {
+            strengthText.style.display = 'block';
+        } else {
+            strengthText.style.display = 'none';
+        }
+
+        if (password.length >= 8) strength++; // Length check
+        if (password.match(/[a-z]/)) strength++; // Lowercase letters
+        if (password.match(/[A-Z]/)) strength++; // Uppercase letters
+        if (password.match(/[0-9]/)) strength++; // Numbers
+        if (password.match(/[^A-Za-z0-9]/)) strength++; // Special characters
+
+        let strengthLevel = "";
+        let barClass = "";
+
+        if (strength < 2) {
+            strengthLevel = "Very Weak";
+            barClass = "strength-weak";
+        } else if (strength < 4) {
+            strengthLevel = "Moderate";
+            barClass = "strength-moderate";
+        } else {
+            strengthLevel = "Strong";
+            barClass = "strength-strong";
+        }
+
+        strengthText.textContent = strengthLevel;
+        strengthBar.className = barClass;
+    });
+
+    // --- Your existing form submission logic ---
+    document.getElementById("registerForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const password = document.getElementById("password").value;
+        const passwordConfirm = document.getElementById("password_confirm").value;
+        const result = document.getElementById("result");
+        const submitButton = this.querySelector('button[type="submit"]');
+
+        if (password !== passwordConfirm) {
+            result.textContent = "Passwords do not match!";
+            result.className = "message error";
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Registering...";
+        result.textContent = ""; // Clear previous general messages
+        clearFieldErrors(); // Clear previous field-specific errors
+
+        const csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+
+        try {
+            const response = await fetch("/api/register/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "X-CSRFToken": csrfToken },
+                body: JSON.stringify({
+                    username: document.getElementById("username").value,
+                    email: document.getElementById("email").value,
+                    password: password,
+                    password_confirm: passwordConfirm // Ensure password_confirm is sent
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                result.textContent = data.message;
+                result.className = "message success";
+                localStorage.setItem('token', data.token);
+
+                setTimeout(() => {
+                    window.location.href = "{% url 'login' %}";
+                }, 2000);
+
+            } else {
+                submitButton.disabled = false;
+                submitButton.textContent = "Register";
+                // Handle and display specific field errors
+                displayFieldErrors(data);
+                result.textContent = data.non_field_errors?.[0] || "Please correct the errors above.";
+                result.className = "message error";
+            }
+        } catch (error) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Register";
+            result.textContent = "Network error. Please try again.";
+            result.className = "message error";
+        }
+    });
+
+    function clearFieldErrors() {
+        document.querySelectorAll('.errorlist').forEach(e => e.remove());
+        document.querySelectorAll('.field-error').forEach(e => e.remove());
+    }
+
+    function displayFieldErrors(errors) {
+        clearFieldErrors(); // Clear existing errors first
+        for (const fieldName in errors) {
+            if (errors.hasOwnProperty(fieldName) && fieldName !== 'non_field_errors') {
+                const inputElement = document.getElementById(fieldName);
+                if (inputElement) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'field-error error';
+                    errorDiv.style.color = '#ff6b6b'; // Match error color
+                    errorDiv.style.fontSize = '0.8rem';
+                    errorDiv.style.marginTop = '-0.8rem';
+                    errorDiv.style.marginBottom = '0.5rem';
+                    errorDiv.style.textAlign = 'left';
+                    errorDiv.innerHTML = errors[fieldName].map(error => `<p>${error}</p>`).join('');
+                    inputElement.parentNode.insertBefore(errorDiv, inputElement.nextSibling);
+                }
+            }
+        }
+    }
+</script>
 {% endblock %}
