@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <a href="{% url 'home' %}"><button type="submit">Task Manager</button></a>
+            <a href="{% url 'home' %}">Task Manager</a>
         </div>
         {% if user.is_authenticated %}
             {% with user.userprofile as profile %}
