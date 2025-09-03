@@ -5,50 +5,67 @@ This is a comprehensive To-Do List Application built with Django (Python) for th
 
 ## Features Implemented
 
-1.  **User Authentication:**
-    *   Secure user registration, login, and logout.
+1.  **Modern User Authentication & Flow:**
+    *   Secure user registration, login, and logout via Django REST Framework API endpoints.
+    *   Client-side JavaScript for asynchronous form submission, dynamic password strength meter, and show/hide password toggles.
+    *   Detailed and user-friendly error messages during registration and login.
+    *   Seamless redirection flow: Register -> Login -> Dashboard/Onboarding.
     *   Each user has their own private task list.
 
-2.  **Task Management:**
+2.  **Public Home Page:**
+    *   Welcoming landing page highlighting application features and call-to-action for registration.
+    *   Consistent "glass panel" aesthetic.
+
+3.  **Dashboard Overview:**
+    *   A personalized dashboard displaying task summaries (total, pending, in-progress, completed, archived).
+    *   Prominent task reminders for overdue, due today, due tomorrow, and due soon tasks.
+    *   Quick action links to add new tasks or categories.
+
+4.  **Task Management:**
     *   Create, view, update, and delete tasks.
     *   Tasks include `title`, `description` (with rich text editor), `due_date`, `priority` (High, Medium, Low), `status` (Pending, In Progress, Complete), `category`, and `attachment`.
     *   **Interactive Due Date Picker:** A calendar interface for easily selecting due dates on task creation/update forms.
     *   **File Attachments:** Users can attach files to tasks.
 
-3.  **Task Prioritization, Categories, and Status:**
+5.  **Task Prioritization, Categories, and Status:**
     *   Tasks can be assigned a `priority` (High, Medium, Low).
     *   Tasks can be assigned to user-defined `categories`.
     *   Tasks have a `status` (Pending, In Progress, Complete).
 
-4.  **Advanced Filtering, Searching, and Sorting:**
+6.  **Advanced Filtering, Searching, and Sorting:**
     *   **Search:** Filter tasks by `title` or `description`.
     *   **Filtering:** Filter tasks by `status`, `priority`, `category`, and `due_date` ranges (Overdue, Today, This Week, Next Week).
     *   **Sorting:** Sort tasks by `due_date`, `created date`, `priority`, and `position` (for drag-and-drop).
 
-5.  **Subtasks/Checklists:**
+7.  **Subtasks/Checklists:**
     *   Each main task can have multiple subtasks.
     *   Subtasks can be marked as complete or deleted.
 
-6.  **Drag-and-Drop Task Reordering:**
+8.  **Drag-and-Drop Task Reordering:**
     *   Tasks in the list can be reordered using drag-and-drop functionality, powered by `Sortable.js` and AJAX. The order is persisted in the database.
 
-7.  **User Avatars/Profile Pictures:**
+9.  **User Avatars/Profile Pictures:**
     *   Users can upload and manage their profile pictures.
+    *   Includes a default placeholder image if no profile picture is set.
 
-8.  **In-App Reminders:**
+10. **In-App Reminders:**
     *   Notifications displayed prominently on every page for:
         *   Overdue tasks.
         *   Tasks due today.
         *   Tasks due tomorrow.
         *   Tasks due within the next 2-3 days.
 
-9.  **Task Commenting System:**
+11. **Task Commenting System:**
     *   Users can add comments to individual tasks, visible on the task detail page.
 
-10. **Task Archiving:**
+12. **Task Archiving:**
     *   Tasks can be archived to remove them from the active task list without deleting them.
     *   A "Show Archived" toggle is available to view archived tasks.
     *   Archived tasks can be unarchived.
+
+13. **Unified "Glass Panel" Theme:**
+    *   Consistent dark, semi-transparent design applied across public pages (Home, Register, Login) and authenticated pages (Dashboard, Tasks, Categories, Profile).
+    *   Prominent gold-box styling for key action links and button-like appearance for navigation links.
 
 ## Installation and Setup
 
@@ -79,14 +96,20 @@ python -m venv venv
     ```
 
 ### 4. Install Dependencies
-Install the required Python packages. If you don't have a `requirements.txt` file, you'll need to install them individually. The key packages used are `Django`, `django-ckeditor`, `Pillow`.
+Install the required Python packages from `requirements.txt`.
 
 ```bash
-pip install Django django-ckeditor Pillow
+pip install -r requirements.txt
 ```
-(If you have a `requirements.txt` file, use `pip install -r requirements.txt`)
 
-### 5. Database Migrations
+### 5. Create Static Files Directory and Placeholder Image
+Ensure the static files directory for images exists and place a `default_profile.png` image there.
+```bash
+mkdir -p tasks/static/tasks/images/
+
+```
+
+### 6. Database Migrations
 Apply the database migrations to create the necessary tables for models (Users, Tasks, Categories, Subtasks, UserProfiles, Comments).
 
 ```bash
@@ -94,8 +117,7 @@ python manage.py makemigrations tasks
 python manage.py migrate
 ```
 
-
-### 6. Run the Development Server
+### 7. Run the Development Server
 Start the Django development server.
 
 ```bash
@@ -105,50 +127,22 @@ The application will be accessible at `http://127.0.0.1:8000/`.
 
 ## Usage
 
-### User Authentication
-*   **Register:** Click "Register" to create a new user account.
-*   **Login:** Use your credentials to log in.
-*   **Logout:** Click "Logout" to end your session.
+### Public Pages
+*   **Home:** The landing page provides an overview of the application.
+*   **Register:** Create a new user account with enhanced client-side validation.
+*   **Login:** Log in to your account with improved error feedback.
 
-### Task List
-*   The homepage displays your active tasks.
-*   Use the search bar to find tasks by title or description.
-*   Use the dropdown filters to narrow down tasks by status, priority, category, or due date.
-*   Use the sort dropdown to change the order of tasks.
-*   **Drag-and-Drop:** Drag and drop tasks to reorder them directly on the list. The new order is saved automatically.
-
-### Adding and Updating Tasks
-*   **Add New Task:** Click "Add New Task" to create a new task.
-*   **Update Task:** Click "View Details" on a task, then "Edit Task" to modify it.
-*   **Due Date:** Use the interactive calendar to select due dates.
-*   **Rich Text Description:** The description field supports rich text formatting.
-*   **Attachments:** Upload files relevant to your tasks.
-
-### Categories
-*   **Add New Category:** Click "Add New Category" to create a custom category.
-*   **View Categories:** Navigate to the "Categories" page to see all your categories.
-*   **Edit/Delete Categories:** You can update or delete existing categories from the "Categories" page.
-
-### Subtasks
-*   On the "Update Task" page, you can add new subtasks, toggle their completion status, or delete them.
-
-### Profile Settings
-*   Navigate to "Profile Settings" to upload or update your profile picture.
-
-### In-App Reminders
-*   Check the top of any page for reminder messages regarding overdue tasks, tasks due today, due tomorrow, or due soon.
-
-### Task Archiving
-*   **Archive:** On the task list or task detail page, click "Archive" to move a task to the archive.
-*   **Show Archived:** Use the "Show Archived" checkbox in the task list filters to display archived tasks.
-*   **Unarchive:** On an archived task, click "Unarchive" to restore it to the active task list.
-
-### Commenting
-*   On the "Task Detail" page, you'll find a section to view existing comments and a form to add new comments.
+### Authenticated Pages
+*   **Dashboard:** View your task summaries and reminders at a glance.
+*   **Task List:** The main page to view, filter, sort, and reorder your active tasks.
+*   **Adding and Updating Tasks:** Create new tasks, and view/edit existing task details including description, due date (with date picker), priority, category, subtasks, and attachments.
+*   **Categories:** Manage your custom task categories.
+*   **Profile Settings:** Upload or update your profile picture.
+*   **Logout:** End your session.
 
 ## Technologies Used
 
-*   **Backend:** Python 3.x, Django 5.x
+*   **Backend:** Python 3.x, Django 5.x, Django REST Framework (DRF), `django-cors-headers`, `django-environ`.
 *   **Frontend:** HTML5, CSS3, JavaScript
 *   **Libraries/Frameworks:**
     *   jQuery (for AJAX and DOM manipulation)
