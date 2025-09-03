@@ -257,7 +257,7 @@ ul li a[href*="delete"]:hover {
 }
 
 .due-today {
-    background-color: rgba(243, 156, 18, 0.6); /* Orange with transparency */
+    background-color: rgba(155, 89, 18, 0.6); /* Orange with transparency */
 }
 
 .due-soon {
@@ -374,7 +374,7 @@ ul li a[href*="delete"]:hover {
 
 /* Base style for login/register containers (glass panel effect) */
 .auth-container {
-    background: rgba(121, 3, 29, 0.75); /* Darker red, semi-transparent */
+    background: rgba(0, 4, 7, 0.5); /* Unified dark transparent background */
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 2rem;
@@ -541,9 +541,9 @@ ul li a[href*="delete"]:hover {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Secondary Button Style (Blue Box) */
+/* Secondary Button Style */
 .btn-secondary {
-    background-color: #3498db; /* A clear, friendly blue */
+    background-color:  #EDB518; 
     color: #FFFFFF; /* White text for contrast */
     padding: 10px 20px;
     border-radius: 5px;
@@ -555,26 +555,25 @@ ul li a[href*="delete"]:hover {
 }
 
 .btn-secondary:hover {
-    background-color: #2980b9; /* Slightly darker blue on hover */
+    background-color: #EDB518; /* Slightly darker blue on hover */
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Navbar Links as Buttons */
 .navbar a.navbar-link-btn {
-    background: rgba(255, 255, 255, 0.1) !important; /* Subtle transparent background */
-    padding: 8px 15px !important;
+    background: rgba(255, 255, 255, 0.1); /* Subtle transparent background */
+    padding: 8px 15px;
     border-radius: 5px;
     margin: 0 8px; /* Adjust spacing between nav items */
     transition: background-color 0.3s ease, color 0.3s ease;
-    color: #F5F7F7 !important; /* Default light text */
-    display: inline-block; /* Ensures padding and background render correctly */
+    color: #F5F7F7; /* Default light text */
 }
 
 .navbar a.navbar-link-btn:hover {
-    background-color: rgba(235, 181, 24, 0.2) !important; /* Subtle gold hover effect */
-    color: #EDB518 !important; /* Gold text on hover */
-    text-decoration: none !important;
+    background-color: rgba(235, 181, 24, 0.2); /* Subtle gold hover effect */
+    color: #EDB518; /* Gold text on hover */
+    text-decoration: none;
 }
 
 /* Responsive Design */
