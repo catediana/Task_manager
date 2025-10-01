@@ -43,33 +43,43 @@ a:hover {
 
 /* Authenticated Navbar (for base.html) */
 .navbar {
-    background: rgba(10, 25, 49, 0.8); /* Dark blue, semi-transparent */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    color: #F6FAFD; /* Light text */
-    padding: 12px 20px;
+    background: linear-gradient(90deg, rgba(10, 25, 49, 0.9) 0%, rgba(26, 61, 99, 0.9) 100%); /* Darker gradient for navbar */
+    backdrop-filter: blur(8px); /* Increased blur for depth */
+    -webkit-backdrop-filter: blur(8px);
+    color: #F6FAFD;
+    padding: 15px 30px; /* More padding */
     display: flex;
-    justify-content: flex-start; /* Align items to the start */
+    justify-content: space-between; /* Space out items */
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
+    border-bottom: 1px solid rgba(179, 207, 229, 0.1); /* Subtle bottom border */
 }
 
 .navbar .logo {
-    margin-right: auto; /* Push other items to the right */
+    margin-right: 30px; /* More space for logo */
 }
 
 .navbar .logo a {
-    color: #B3CFE5; /* Light blue accent for logo */
-    font-size: 1.5em;
+    color: #B3CFE5; /* Light blue for logo */
+    font-size: 1.8em; /* Larger font size for logo */
     font-weight: bold;
+    text-shadow: 0 0 5px rgba(179, 207, 229, 0.5); /* Subtle text shadow for logo */
+}
+
+.navbar ul.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px; /* Space between nav links */
 }
 
 .navbar a,
 .navbar span {
     color: #F6FAFD;
-    margin: 0 15px;
     font-weight: bold;
     font-size: 1.1em;
+    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
 }
 
 .navbar a:hover {
@@ -77,8 +87,70 @@ a:hover {
     text-decoration: none;
 }
 
+.navbar a.navbar-link-btn {
+    background: rgba(179, 207, 229, 0.15); /* Slightly more prominent background for link buttons */
+    padding: 10px 20px; /* More padding for button-like links */
+    border-radius: 8px; /* Slightly more rounded corners */
+    color: #F6FAFD;
+}
+
+.navbar a.navbar-link-btn:hover {
+    background-color: rgba(74, 127, 167, 0.3); /* Darker medium blue on hover */
+    color: #B3CFE5;
+}
+
 .navbar img {
-    margin-right: 10px; /* Space between image and username */
+    margin-right: 15px; /* More space between image and username */
+    border-radius: 50%; /* Ensure profile pictures are circular */
+    border: 2px solid #B3CFE5; /* Light blue border for profile pic */
+    width: 40px; /* Standard size for profile pic */
+    height: 40px;
+    object-fit: cover; /* Cover the area without distortion */
+}
+
+/* Specific styles for Public Navbar (for base_public.html) */
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(90deg, rgba(10, 25, 49, 0.9) 0%, rgba(26, 61, 99, 0.9) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(179, 207, 229, 0.1);
+}
+
+header .logo a {
+    color: #B3CFE5;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 0 5px rgba(179, 207, 229, 0.5);
+}
+
+header .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+header .nav-links li a {
+    color: #F6FAFD;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: rgba(179, 207, 229, 0.15); /* Consistent button-like appearance */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header .nav-links li a:hover {
+    background-color: rgba(74, 127, 167, 0.3);
+    color: #B3CFE5;
+    text-decoration: none;
 }
 
 /* Messages */
@@ -575,6 +647,106 @@ ul li a[href*="delete"]:hover {
     background-color: rgba(74, 127, 167, 0.2); /* Subtle medium blue hover effect */
     color: #B3CFE5; /* Light blue text on hover */
     text-decoration: none;
+}
+
+/* Home Page Specific Styles */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: rgba(10, 25, 49, 0.6); /* Dark blue semi-transparent background for hero */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    margin-bottom: 30px;
+    border-radius: 10px; /* Consistent rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+.hero h2 {
+    color: #B3CFE5; /* Light blue heading */
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px rgba(179, 207, 229, 0.7); /* More prominent text shadow */
+}
+
+.hero p {
+    color: #F6FAFD; /* Off-white text */
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero .btn-secondary {
+    font-size: 1.1em;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.features-grid,
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.feature-item,
+.testimonial-item {
+    background: rgba(26, 61, 99, 0.6); /* Medium dark blue for items */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #F6FAFD;
+}
+
+.feature-item h3,
+.testimonial-item h3 {
+    color: #B3CFE5; /* Light blue heading */
+    font-size: 1.6em;
+    margin-bottom: 15px;
+}
+
+.feature-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item p,
+.testimonial-item p {
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.testimonial-item .author {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #B3CFE5; /* Light blue for author */
+}
+
+.call-to-action {
+    text-align: center;
+    padding: 50px 20px;
+    margin-top: 30px;
+}
+
+.call-to-action h2 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+.call-to-action .btn-secondary {
+    font-size: 1.1em;
+    padding: 15px 30px;
+    border-radius: 10px;
 }
 
 /* Responsive Design */

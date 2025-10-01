@@ -2,24 +2,19 @@
 {% load static %}
 
 {% block content %}
-    <section class="hero">
-        <h2>Organize Your Tasks Efficiently</h2>
-        <p>Track deadlines, prioritize your work, and boost your productivity.</p>
-        <a href="{% url 'register' %}" class="btn-secondary">Get Started</a>
-    </section>
+   
 
-    <section>
-        <h3>Why Use This App?</h3>
+    <div class="container">
+        <section class="glass-panel" id="about-us">
+            <h2>About Us</h2>
+            <p>At Task Manager, we believe that tracking your tasks should be simple and motivating. Our platform is designed to help you stay accountable, visualize your progress, and crush your goals, whether you're managing personal errands or complex projects. We are a community of dedicated individuals, forging stronger habits and more organized lives together.</p>
+        </section>
+
         
-            <p>You'll have Overdue task alerts to always stay on track,Flexible task sorting and filtering,a chance to manage subtasks, comments, secure user authentication and profile management</p></li>
-           
-        
-    </section>
 
-  
-
-    <section class="glass-panel">
-        <h2>Ready to start managing your tasks?</h2>
-        <a href="{% url 'register' %}" class="btn-secondary">Join Now</a>
-    </section>
+        <section class="glass-panel call-to-action">
+            <h2>Ready to start managing your tasks?</h2>
+            <a href="{% url 'register' %}" class="btn-secondary">Join Now</a>
+        </section>
+    </div>
 {% endblock %}
