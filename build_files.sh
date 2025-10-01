@@ -5,7 +5,7 @@ set -e
 python -m pip install --upgrade pip
 
 # Install dependencies
-#pip install -r requirements.txt
+pip install -r requirements.txt
 
 # Collect static files into STATIC_ROOT
 python manage.py collectstatic --noinput
