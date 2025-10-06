@@ -6,28 +6,38 @@ from pathlib import Path
 import os
 import environ
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
-env = environ.Env()
-environ.Env.read_env()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+env_path = os.path.join(BASE_DIR, '.env')
 
-SECRET_KEY = os.getenv(
-    'SECRET_KEY',
-    'django-insecure-1k_f_kkoq97)2o8tbxosu9ope$y!xlc618=_ly72p13yl2bw85'
+if os.path.exists(env_path):
+    print(f"✅ Loading environment from: {env_path}")
+    env.read_env(env_path)
+else:
+    print("❌ .env file not found:", env_path)
+
+SECRET_KEY = env(
+    "SECRET_KEY",
+    default="django-insecure-1k_f_kkoq97)2o8tbxosu9ope$y!xlc618=_ly72p13yl2bw85",
 )
 
-# SECURITY WARNING: 
-DEBUG = env.bool("DEBUG", default=False)
 
+DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS",
     default=["127.0.0.1", "localhost", ".vercel.app", "task-manager-ngk9.vercel.app"],
 )
 
-# ✅ CSRF trusted origins: 
+
+#  CSRF trusted origins: 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.vercel.app',
     'https://task-manager-ngk9.vercel.app',
@@ -45,6 +55,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'ckeditor',
     'ckeditor_uploader',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -139,9 +151,17 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # ✅ WhiteNoise compressed storage for production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+CLOUDINARY_URL = env("CLOUDINARY_URL")
