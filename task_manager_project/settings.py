@@ -24,13 +24,13 @@ DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS",
-    default=["127.0.0.1", "localhost", ".vercel.app"]
+    default=["127.0.0.1", "localhost", ".vercel.app", "task-manager-ngk9.vercel.app"],
 )
 
 # ✅ CSRF trusted origins: 
 CSRF_TRUSTED_ORIGINS = [
-    'https://task-manager-13x3.onrender.com',
     'https://*.vercel.app',
+    'https://task-manager-ngk9.vercel.app',
 ]
 
 INSTALLED_APPS = [
