@@ -12,22 +12,22 @@ environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = os.getenv(
     'SECRET_KEY',
     'django-insecure-1k_f_kkoq97)2o8tbxosu9ope$y!xlc618=_ly72p13yl2bw85'
 )
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: 
 DEBUG = env.bool("DEBUG", default=False)
 
-# ✅ Include .vercel.app so your deployed domain works
+
 ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS",
     default=["127.0.0.1", "localhost", ".vercel.app"]
 )
 
-# ✅ CSRF trusted origins: add vercel domain too
+# ✅ CSRF trusted origins: 
 CSRF_TRUSTED_ORIGINS = [
     'https://task-manager-13x3.onrender.com',
     'https://*.vercel.app',
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ WhiteNoise for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',  
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,13 +93,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task_manager_project.wsgi.application'
 
-# ✅ Database: use DATABASE_URL if provided (Postgres on production), else SQLite locally
+# ✅ Database: DATABASE_URL (Postgres on production), else SQLite locally
 DATABASES = {
     'default': dj_database_url.config(
-        default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',
+        default=os.environ.get("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3')}"),
         conn_max_age=600,
     )
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
