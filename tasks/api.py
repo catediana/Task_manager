@@ -32,8 +32,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return user
 
 class RegisterAPIView(APIView):
-    authentication_classes = [] # Allow unauthenticated access
-    permission_classes = []   # Allow unauthenticated access
+    authentication_classes = [] 
+    permission_classes = []   
 
     def post(self, request):
         serializer = UserRegisterSerializer(data=request.data)
@@ -61,15 +61,15 @@ class UserLoginSerializer(serializers.Serializer):
         return data
 
 class LoginAPIView(APIView):
-    authentication_classes = [] # Allow unauthenticated access
-    permission_classes = []   # Allow unauthenticated access
+    authentication_classes = [] 
+    permission_classes = []  
 
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
-            login(request, user) # Log the user in
+            login(request, user) 
             return Response({'token': token.key, 'message': 'Login successful!'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -79,7 +79,6 @@ class LoginAPIView(APIView):
 def user_profile_api(request):
     try:
         profile = UserProfile.objects.get(user=request.user)
-        # You can add a serializer here to return profile data if needed
         return Response({'message': 'User profile exists.', 'user_id': request.user.id}, status=status.HTTP_200_OK)
     except UserProfile.DoesNotExist:
         return Response({'message': 'User profile does not exist.'}, status=status.HTTP_404_NOT_FOUND)

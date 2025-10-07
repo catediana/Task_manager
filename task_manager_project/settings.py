@@ -21,7 +21,7 @@ if os.path.exists(env_path):
     print(f" Loading environment from: {env_path}")
     env.read_env(env_path)
 else:
-    print("❌ .env file not found:", env_path)
+    print(".env file not found:", env_path)
 
 SECRET_KEY = env(
     "SECRET_KEY",
@@ -105,7 +105,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task_manager_project.wsgi.application'
 
-# ✅ Database: DATABASE_URL (Postgres on production), else SQLite locally
+# Database: DATABASE_URL (Postgres on production), else SQLite locally
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3')}"),

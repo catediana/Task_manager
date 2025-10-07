@@ -31,39 +31,39 @@ h1, h2 {
 }
 
 a {
-    color: #B3CFE5; /* Light blue accent for links */
+    color: #B3CFE5; 
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
     text-decoration: underline;
-    color: #F6FAFD; /* Off-white on hover */
+    color: #F6FAFD; 
 }
 
 /* Authenticated Navbar (for base.html) */
 .navbar {
     background: linear-gradient(90deg, rgba(10, 25, 49, 0.9) 0%, rgba(26, 61, 99, 0.9) 100%); /* Darker gradient for navbar */
-    backdrop-filter: blur(8px); /* Increased blur for depth */
+    backdrop-filter: blur(8px); 
     -webkit-backdrop-filter: blur(8px);
     color: #F6FAFD;
-    padding: 15px 30px; /* More padding */
+    padding: 15px 30px; 
     display: flex;
-    justify-content: space-between; /* Space out items */
+    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
-    border-bottom: 1px solid rgba(179, 207, 229, 0.1); /* Subtle bottom border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+    border-bottom: 1px solid rgba(179, 207, 229, 0.1); 
 }
 
 .navbar .logo {
-    margin-right: 30px; /* More space for logo */
+    margin-right: 30px; 
 }
 
 .navbar .logo a {
-    color: #B3CFE5; /* Light blue for logo */
-    font-size: 1.8em; /* Larger font size for logo */
+    color: #B3CFE5; 
+    font-size: 1.8em; 
     font-weight: bold;
-    text-shadow: 0 0 5px rgba(179, 207, 229, 0.5); /* Subtle text shadow for logo */
+    text-shadow: 0 0 5px rgba(179, 207, 229, 0.5); 
 }
 
 .navbar ul.nav-links {
@@ -71,7 +71,7 @@ a:hover {
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 20px; /* Space between nav links */
+    gap: 20px; 
 }
 
 .navbar a,
@@ -79,33 +79,33 @@ a:hover {
     color: #F6FAFD;
     font-weight: bold;
     font-size: 1.1em;
-    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+    transition: color 0.3s ease, background-color 0.3s ease; 
 }
 
 .navbar a:hover {
-    color: #B3CFE5; /* Light blue on hover */
+    color: #B3CFE5; 
     text-decoration: none;
 }
 
 .navbar a.navbar-link-btn {
-    background: rgba(179, 207, 229, 0.15); /* Slightly more prominent background for link buttons */
-    padding: 10px 20px; /* More padding for button-like links */
-    border-radius: 8px; /* Slightly more rounded corners */
+    background: rgba(179, 207, 229, 0.15); 
+    padding: 10px 20px; 
+    border-radius: 8px; 
     color: #F6FAFD;
 }
 
 .navbar a.navbar-link-btn:hover {
-    background-color: rgba(74, 127, 167, 0.3); /* Darker medium blue on hover */
+    background-color: rgba(74, 127, 167, 0.3); 
     color: #B3CFE5;
 }
 
 .navbar img {
-    margin-right: 15px; /* More space between image and username */
-    border-radius: 50%; /* Ensure profile pictures are circular */
-    border: 2px solid #B3CFE5; /* Light blue border for profile pic */
-    width: 40px; /* Standard size for profile pic */
+    margin-right: 15px; 
+    border-radius: 50%; 
+    border: 2px solid #B3CFE5; 
+    width: 40px; 
     height: 40px;
-    object-fit: cover; /* Cover the area without distortion */
+    object-fit: cover; 
 }
 
 /* Specific styles for Public Navbar (for base_public.html) */
@@ -143,7 +143,7 @@ header .nav-links li a {
     font-weight: bold;
     padding: 10px 20px;
     border-radius: 8px;
-    background: rgba(179, 207, 229, 0.15); /* Consistent button-like appearance */
+    background: rgba(179, 207, 229, 0.15); 
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -163,13 +163,13 @@ header .nav-links li a:hover {
 }
 
 .message.success {
-    background-color: rgba(144, 238, 144, 0.2); /* Light green semi-transparent */
+    background-color: rgba(144, 238, 144, 0.2); 
     color: #90ee90;
     border: 1px solid rgba(144, 238, 144, 0.3);
 }
 
 .message.error {
-    background-color: rgba(255, 107, 107, 0.2); /* Red semi-transparent */
+    background-color: rgba(255, 107, 107, 0.2); 
     color: #ff6b6b;
     border: 1px solid rgba(255, 107, 107, 0.3);
 }
@@ -183,7 +183,7 @@ form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #F6FAFD; /* Light label text */
+    color: #F6FAFD; 
 }
 
 form input[type="text"],
@@ -195,11 +195,11 @@ form select {
     width: calc(100% - 22px);
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid rgba(179, 207, 229, 0.3); /* Light blue, semi-transparent border */
+    border: 1px solid rgba(179, 207, 229, 0.3); 
     border-radius: 5px;
     font-size: 1em;
-    background: rgba(10, 25, 49, 0.5); /* Dark semi-transparent input */
-    color: #F6FAFD; /* Light input text */
+    background: rgba(10, 25, 49, 0.5); 
+    color: #F6FAFD; 
     outline: none;
 }
 
@@ -209,8 +209,8 @@ form textarea {
 }
 
 form button[type="submit"] {
-    background-color: #4A7FA7; /* Medium blue for submit button */
-    color: #F6FAFD; /* Light text */
+    background-color: #4A7FA7; 
+    color: #F6FAFD; 
     padding: 12px 20px;
     border: none;
     border-radius: 5px;
@@ -221,8 +221,8 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #1A3D63; /* Darker blue on hover */
-    color: #F6FAFD; /* Light text on hover */
+    background-color: #1A3D63; 
+    color: #F6FAFD; 
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
@@ -234,8 +234,8 @@ ul {
 }
 
 ul li {
-    background: rgba(179, 207, 229, 0.05); /* Very subtle light blue for list items */
-    border: 1px solid rgba(179, 207, 229, 0.1); /* Light blue, semi-transparent border */
+    background: rgba(179, 207, 229, 0.05); 
+    border: 1px solid rgba(179, 207, 229, 0.1); 
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 10px;
@@ -245,34 +245,34 @@ ul li {
 }
 
 ul li strong {
-    color: #B3CFE5; /* Light blue accent for strong text */
+    color: #B3CFE5; 
     font-size: 1.2em;
 }
 
 ul li p {
     margin: 0;
-    color: #F6FAFD; /* Light paragraph text */
+    color: #F6FAFD; 
 }
 
 ul li a {
     margin-right: 10px;
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: #4A7FA7; /* Medium blue for links/buttons in lists */
-    color: #F6FAFD; /* Light text */
+    background-color: #4A7FA7; 
+    color: #F6FAFD; 
     text-decoration: none;
     align-self: flex-start;
 }
 
 ul li a:hover {
-    background-color: #1A3D63; /* Darker blue on hover */
+    background-color: #1A3D63; 
     color: #F6FAFD;
     text-decoration: none;
 }
 
 /* Specific styles for Delete button */
 ul li a[href*="delete"] {
-    background-color: #dc3545; /* Red for delete (semantic) */
+    background-color: #dc3545; 
     color: #F6FAFD;
 }
 
@@ -291,7 +291,7 @@ ul li a[href*="delete"]:hover {
     margin-bottom: 10px;
     border-radius: 5px;
     color: #F6FAFD;
-    background: rgba(10, 25, 49, 0.5); /* Consistent dark semi-transparent background */
+    background: rgba(10, 25, 49, 0.5); 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 }
@@ -299,7 +299,7 @@ ul li a[href*="delete"]:hover {
 .reminder h3 {
     margin-top: 0;
     margin-bottom: 10px;
-    color: #B3CFE5; /* Light blue accent for reminder headings */
+    color: #B3CFE5; 
 }
 
 .reminder ul {
@@ -309,15 +309,15 @@ ul li a[href*="delete"]:hover {
 
 .reminder li {
     margin-bottom: 5px;
-    background: transparent; /* Transparent list items within reminders */
+    background: transparent; 
     border: none;
     padding: 0;
 }
 
 .reminder li a {
-    color: #F6FAFD; /* Light text for reminder links */
+    color: #F6FAFD; 
     text-decoration: underline;
-    background: transparent; /* Transparent background for links */
+    background: transparent; 
     padding: 0;
 }
 
@@ -326,25 +326,25 @@ ul li a[href*="delete"]:hover {
 }
 
 .overdue {
-    background-color: rgba(231, 76, 60, 0.6); /* Red with transparency (semantic) */
+    background-color: rgba(231, 76, 60, 0.6); 
 }
 
 .due-today {
-    background-color: rgba(155, 89, 18, 0.6); /* Orange with transparency (semantic) */
+    background-color: rgba(155, 89, 18, 0.6); 
 }
 
 .due-soon {
-    background-color: rgba(74, 127, 167, 0.6); /* Medium Blue with transparency */
+    background-color: rgba(74, 127, 167, 0.6); 
 }
 
 .due-tomorrow {
-    background-color: rgba(155, 89, 182, 0.6); /* Purple with transparency (semantic) */
+    background-color: rgba(155, 89, 182, 0.6);
 }
 
-/* Existing dashboard styles, updated for consistency */
+/* dashboard styles */
 .dashboard-container {
     display: grid;
-    grid-template-columns: 1fr; /* Default for smaller screens */
+    grid-template-columns: 1fr; 
     gap: 2rem;
     padding: 2rem;
     max-width: 1200px;
@@ -352,7 +352,7 @@ ul li a[href*="delete"]:hover {
 }
 
 .summary-section h2 {
-    color: #B3CFE5; /* Light blue accent for headings */
+    color: #B3CFE5; 
     text-align: center;
     margin-bottom: 25px;
 }
@@ -364,7 +364,7 @@ ul li a[href*="delete"]:hover {
 }
 
 .card {
-    background: rgba(10, 25, 49, 0.5); /* Semi-transparent dark card, adjusted */
+    background: rgba(10, 25, 49, 0.5); 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 1.5rem;
@@ -376,7 +376,7 @@ ul li a[href*="delete"]:hover {
 
 .card h3 {
     margin-bottom: 0.5rem;
-    color: #B3CFE5; /* Light blue accent */
+    color: #B3CFE5; 
 }
 
 .card p {
@@ -386,13 +386,13 @@ ul li a[href*="delete"]:hover {
 }
 
 .reminders-section h2, .quick-actions h2 {
-    color: #B3CFE5; /* Light blue accent */
+    color: #B3CFE5;
     margin-bottom: 1.5rem;
     text-align: center;
 }
 
 .task-list {
-    background: rgba(10, 25, 49, 0.5); /* Dark, more transparent, adjusted */
+    background: rgba(10, 25, 49, 0.5); 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 1.5rem;
@@ -408,7 +408,7 @@ ul li a[href*="delete"]:hover {
 }
 
 .task-list li {
-    background: rgba(179, 207, 229, 0.05); /* Very subtle light blue for list items */
+    background: rgba(179, 207, 229, 0.05);
     margin-bottom: 0.5rem;
     padding: 0.8rem;
     border-radius: 5px;
@@ -418,7 +418,7 @@ ul li a[href*="delete"]:hover {
 }
 
 .task-list li a {
-    color: #B3CFE5; /* Light blue accent */
+    color: #B3CFE5; 
     text-decoration: none;
     font-weight: bold;
 }
@@ -429,7 +429,7 @@ ul li a[href*="delete"]:hover {
 
 .task-list .due-date {
     font-size: 0.8em;
-    color: #B3CFE5; /* Light blue accent */
+    color: #B3CFE5; 
 }
 
 /*------------------------------------*\
@@ -442,12 +442,12 @@ ul li a[href*="delete"]:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 12rem); /* Adjust as needed */
+    min-height: calc(100vh - 12rem); 
 }
 
 /* Base style for login/register containers (glass panel effect) */
 .auth-container {
-    background: rgba(10, 25, 49, 0.5); /* Unified dark transparent background */
+    background: rgba(10, 25, 49, 0.5); 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 2rem;
@@ -455,14 +455,14 @@ ul li a[href*="delete"]:hover {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     width: 360px;
     text-align: center;
-    color: #F6FAFD; /* Light text */
+    color: #F6FAFD; 
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
 .auth-container h1 {
     margin-bottom: 1.5rem;
-    color: #F6FAFD; /* Light text */
+    color: #F6FAFD; 
 }
 
 .auth-container label {
@@ -470,7 +470,7 @@ ul li a[href*="delete"]:hover {
     text-align: left;
     margin: 0.5rem 0 0.2rem;
     font-size: 0.9rem;
-    color: #B3CFE5; /* Light blue for labels */
+    color: #B3CFE5; 
 }
 
 .auth-container input[type="text"],
@@ -482,14 +482,14 @@ ul li a[href*="delete"]:hover {
     border: none;
     border-radius: 10px;
     font-size: 1rem;
-    background: rgba(10, 25, 49, 0.5); /* Dark, semi-transparent input background */
-    color: #F6FAFD; /* Light text */
+    background: rgba(10, 25, 49, 0.5); 
+    color: #F6FAFD;
     outline: none;
-    box-sizing: border-box; /* Include padding in width */
+    box-sizing: border-box; 
 }
 
 .auth-container input::placeholder {
-    color: #B3CFE5; /* Light blue placeholder text */
+    color: #B3CFE5; 
 }
 
 /* Password strength meter styles */
@@ -499,7 +499,7 @@ ul li a[href*="delete"]:hover {
     transition: width 0.3s ease-in-out;
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
-    background-color: transparent; /* Default transparent */
+    background-color: transparent; 
 }
 
 .strength-text {
@@ -509,9 +509,9 @@ ul li a[href*="delete"]:hover {
     margin-top: 0.2rem;
 }
 
-.strength-weak { background-color: #ff6b6b; width: 33%; } /* Semantic red */
-.strength-moderate { background-color: #f7c94c; width: 66%; } /* Semantic orange */
-.strength-strong { background-color: #90ee90; width: 100%; } /* Semantic green */
+.strength-weak { background-color: #ff6b6b; width: 33%; } 
+.strength-moderate { background-color: #f7c94c; width: 66%; } 
+.strength-strong { background-color: #90ee90; width: 100%; } 
 
 /* Checkbox container for "Show Password" */
 .checkbox-container {
@@ -530,8 +530,8 @@ ul li a[href*="delete"]:hover {
 .auth-container button[type="submit"] {
     width: 100%;
     padding: 12px;
-    background: #4A7FA7; /* Medium blue accent for buttons */
-    color: #F6FAFD; /* Light text for buttons */
+    background: #4A7FA7; 
+    color: #F6FAFD; 
     border: none;
     border-radius: 5px;
     font-size: 1rem;
@@ -541,8 +541,8 @@ ul li a[href*="delete"]:hover {
 }
 
 .auth-container button[type="submit"]:hover {
-    background: #1A3D63; /* Darker blue on hover */
-    color: #F6FAFD; /* Light text on hover */
+    background: #1A3D63; 
+    color: #F6FAFD; 
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
@@ -554,22 +554,22 @@ ul li a[href*="delete"]:hover {
 }
 
 .auth-container .message.success {
-    color: #90ee90; /* Green for success */
+    color: #90ee90; 
 }
 
 .auth-container .message.error {
-    color: #ff6b6b; /* Red for error */
+    color: #ff6b6b; 
 }
 
 /* Auth links (e.g., "Already have an account?") */
 .auth-link {
     margin-top: 1rem;
-    color: #F6FAFD; /* Light text */
+    color: #F6FAFD; 
     font-size: 0.9rem;
 }
 
 .auth-link a {
-    color: #B3CFE5; /* Light blue accent for links */
+    color: #B3CFE5; 
     text-decoration: none;
     font-weight: bold;
 }
@@ -579,7 +579,7 @@ ul li a[href*="delete"]:hover {
 }
 
 .field-error {
-    color: #ff6b6b; /* Red for field errors */
+    color: #ff6b6b; 
     font-size: 0.8rem;
     margin-top: -0.8rem;
     margin-bottom: 0.5rem;
@@ -598,8 +598,8 @@ ul li a[href*="delete"]:hover {
 }
 
 .quick-actions .btn {
-    background: #4A7FA7; /* Medium blue */
-    color: #F6FAFD; /* Light text */
+    background: #4A7FA7; 
+    color: #F6FAFD; 
     padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
@@ -608,44 +608,44 @@ ul li a[href*="delete"]:hover {
 }
 
 .quick-actions .btn:hover {
-    background: #1A3D63; /* Darker blue */
-    color: #F6FAFD; /* Light text */
+    background: #1A3D63; 
+    color: #F6FAFD; 
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Secondary Button Style */
 .btn-secondary {
-    background-color:  #B3CFE5; /* Light blue for secondary button */
-    color: #0A1931; /* Dark blue text for contrast */
+    background-color:  #B3CFE5; 
+    color: #0A1931; 
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s ease;
-    display: inline-block; /* Allows padding and width */
+    display: inline-block; 
     text-align: center;
 }
 
 .btn-secondary:hover {
-    background-color: #4A7FA7; /* Medium blue on hover */
+    background-color: #4A7FA7; 
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Navbar Links as Buttons */
 .navbar a.navbar-link-btn {
-    background: rgba(179, 207, 229, 0.1); /* Subtle transparent light blue background */
+    background: rgba(179, 207, 229, 0.1); 
     padding: 8px 15px;
     border-radius: 5px;
-    margin: 0 8px; /* Adjust spacing between nav items */
+    margin: 0 8px; 
     transition: background-color 0.3s ease, color 0.3s ease;
-    color: #F6FAFD; /* Default light text */
+    color: #F6FAFD; 
 }
 
 .navbar a.navbar-link-btn:hover {
-    background-color: rgba(74, 127, 167, 0.2); /* Subtle medium blue hover effect */
-    color: #B3CFE5; /* Light blue text on hover */
+    background-color: rgba(74, 127, 167, 0.2); 
+    color: #B3CFE5; 
     text-decoration: none;
 }
 
@@ -653,23 +653,23 @@ ul li a[href*="delete"]:hover {
 .hero {
     text-align: center;
     padding: 80px 20px;
-    background: rgba(10, 25, 49, 0.6); /* Dark blue semi-transparent background for hero */
+    background: rgba(10, 25, 49, 0.6); 
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     margin-bottom: 30px;
-    border-radius: 10px; /* Consistent rounded corners */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
 }
 
 .hero h2 {
-    color: #B3CFE5; /* Light blue heading */
+    color: #B3CFE5; 
     font-size: 2.8em;
     margin-bottom: 15px;
-    text-shadow: 0 0 8px rgba(179, 207, 229, 0.7); /* More prominent text shadow */
+    text-shadow: 0 0 8px rgba(179, 207, 229, 0.7); 
 }
 
 .hero p {
-    color: #F6FAFD; /* Off-white text */
+    color: #F6FAFD; 
     font-size: 1.2em;
     margin-bottom: 30px;
     max-width: 700px;
@@ -694,7 +694,7 @@ ul li a[href*="delete"]:hover {
 
 .feature-item,
 .testimonial-item {
-    background: rgba(26, 61, 99, 0.6); /* Medium dark blue for items */
+    background: rgba(26, 61, 99, 0.6); 
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     padding: 25px;
@@ -706,7 +706,7 @@ ul li a[href*="delete"]:hover {
 
 .feature-item h3,
 .testimonial-item h3 {
-    color: #B3CFE5; /* Light blue heading */
+    color: #B3CFE5; 
     font-size: 1.6em;
     margin-bottom: 15px;
 }
@@ -729,7 +729,7 @@ ul li a[href*="delete"]:hover {
     display: block;
     margin-top: 15px;
     font-weight: bold;
-    color: #B3CFE5; /* Light blue for author */
+    color: #B3CFE5; 
 }
 
 .call-to-action {
@@ -824,8 +824,8 @@ ul li a[href*="delete"]:hover {
     }
 
     .task-controls form > * {
-        flex: 1 1 auto; /* Allow items to grow and shrink */
-        min-width: 120px; /* Minimum width before wrapping */
+        flex: 1 1 auto; 
+        min-width: 120px; 
     }
 
     .task-controls form button {

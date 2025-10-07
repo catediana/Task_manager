@@ -331,7 +331,7 @@ def add_subtask(request, task_id):
             subtask.task = task
             subtask.save()
             return redirect('update_task', task_id=task.id)
-    return redirect('update_task', task_id=task.id) # Or render a specific add_subtask.html
+    return redirect('update_task', task_id=task.id) 
 
 @login_required
 def toggle_subtask_complete(request, subtask_id):
