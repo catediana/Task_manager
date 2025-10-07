@@ -18,7 +18,7 @@ env = environ.Env()
 env_path = os.path.join(BASE_DIR, '.env')
 
 if os.path.exists(env_path):
-    print(f"✅ Loading environment from: {env_path}")
+    print(f" Loading environment from: {env_path}")
     env.read_env(env_path)
 else:
     print("❌ .env file not found:", env_path)
@@ -133,13 +133,17 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
-# ✅ Static & media files
+# Static & media files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# local media during development, Cloudinary in production
+if DEBUG:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+else:
+    # Cloudinary storage for production 
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # CKEditor config
 CKEDITOR_UPLOAD_PATH = "uploads/"
@@ -152,16 +156,21 @@ CKEDITOR_CONFIGS = {
 }
 
 
-
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# ✅ WhiteNoise compressed storage for production
+# WhiteNoise compressed storage for production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+#  Cloudinary Configuration
+cloudinary.config(
+    cloud_name="dkt12hzdm",
+    api_key="637419457344564",
+    api_secret="sepBR6zDqk2znBELIfXVuS5Ew34",
+)
 
 CLOUDINARY_URL = env("CLOUDINARY_URL")
+

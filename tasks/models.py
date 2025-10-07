@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from cloudinary.models import CloudinaryField
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    profile_picture = CloudinaryField('image', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -38,7 +40,7 @@ class Task(models.Model):
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='medium')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-    attachment = models.FileField(upload_to='task_attachments/', blank=True, null=True)
+    attachment = CloudinaryField('file', blank=True, null=True)
     position = models.PositiveIntegerField(default=0, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     is_archived = models.BooleanField(default=False)

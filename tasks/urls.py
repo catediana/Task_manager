@@ -1,5 +1,5 @@
 from django.urls import path, include
-from . import views, api # Import api_views as api
+from . import views, api 
 
 urlpatterns = [
     path("", views.home, name="home"),  # Public landing page
