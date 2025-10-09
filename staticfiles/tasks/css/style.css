@@ -10,6 +10,90 @@ body {
     color: #F6FAFD; 
     line-height: 1.6;
 }
+header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo a {
+            color:  #F6FAFD;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-link-btn {
+            color: #fff;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-link-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Profile image */
+        .profile-pic {
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            object-fit: cover;
+            margin-right: 0.5rem;
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.7);
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 200px;
+                padding: 1rem;
+                border-radius: 10px 0 0 10px;
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .navbar-link-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
 
 .container {
     width: 85%;

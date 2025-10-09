@@ -11,29 +11,39 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
-    <nav class="navbar">
+    <header>
         <div class="logo">
             <a href="{% url 'home' %}">Task Manager</a>
         </div>
-        {% if user.is_authenticated %}
-            {% with user.userprofile as profile %}
-                {% if profile.profile_picture %}
-                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="30" height="30" style="border-radius: 50%; object-fit: cover;">
-                {% else %}
-                    <img src="{% static 'tasks/images/default_profile.png' %}" alt="Default Profile Picture" width="30" height="30" style="border-radius: 50%; object-fit: cover;">
-                {% endif %}
-            {% endwith %}
-            <span>Hello, {{ user.username }}!</span>
-            <a href="{% url 'dashboard' %}" class="navbar-link-btn">Dashboard</a>
-            <a href="{% url 'task_list' %}" class="navbar-link-btn">Tasks</a>
-            <a href="{% url 'category_list' %}" class="navbar-link-btn">Categories</a>
-            <a href="{% url 'profile_settings' %}" class="navbar-link-btn">Profile Settings</a>
-            <a href="{% url 'logout' %}" class="navbar-link-btn">Logout</a>
-        {% else %}
-            <a href="{% url 'login' %}" class="navbar-link-btn">Login</a>
-            <a href="{% url 'register' %}" class="navbar-link-btn">Register</a>
-        {% endif %}
-    </nav>
+
+        <!-- Menu Toggle (mobile) -->
+        <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">
+            ☰
+        </button>
+
+        <!-- Navigation -->
+        <nav id="nav">
+            {% if user.is_authenticated %}
+                {% with user.userprofile as profile %}
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+                    {% else %}
+                        <img src="{% static 'tasks/images/default_profile.png' %}" alt="Default Profile Picture" class="profile-pic">
+                    {% endif %}
+                {% endwith %}
+                <span style="color: #fff;">Hello, {{ user.username }}!</span>
+                <a href="{% url 'dashboard' %}" class="navbar-link-btn">Dashboard</a>
+                <a href="{% url 'task_list' %}" class="navbar-link-btn">Tasks</a>
+                <a href="{% url 'category_list' %}" class="navbar-link-btn">Categories</a>
+                <a href="{% url 'profile_settings' %}" class="navbar-link-btn">Profile Settings</a>
+                <a href="{% url 'logout' %}" class="navbar-link-btn">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="navbar-link-btn">Login</a>
+                <a href="{% url 'register' %}" class="navbar-link-btn">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
     <div class="container">
         {% if messages %}
             {% for message in messages %}
@@ -43,56 +53,23 @@
             {% endfor %}
         {% endif %}
 
-        {% if user.is_authenticated %}
-            <div class="reminders-section">
-                {% if overdue_tasks %}
-                    <div class="reminder overdue">
-                        <h3>Overdue Tasks:</h3>
-                        <ul>
-                            {% for task in overdue_tasks %}
-                                <li><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a> (Due: {{ task.due_date }})</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% if tasks_due_today %}
-                    <div class="reminder due-today">
-                        <h3>Tasks Due Today:</h3>
-                        <ul>
-                            {% for task in tasks_due_today %}
-                                <li><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a> (Priority: {{ task.priority }})</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% if tasks_due_tomorrow %}
-                    <div class="reminder due-tomorrow">
-                        <h3>Tasks Due Tomorrow:</h3>
-                        <ul>
-                            {% for task in tasks_due_tomorrow %}
-                                <li><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a> (Priority: {{ task.priority }})</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% if tasks_due_soon %}
-                    <div class="reminder due-soon">
-                        <h3>Tasks Due Soon (Next 2-3 Days):</h3>
-                        <ul>
-                            {% for task in tasks_due_soon %}
-                                <li><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a> (Due: {{ task.due_date }})</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-            </div>
-        {% endif %}
-
         {% block content %}
-
         {% endblock %}
     </div>
+
     <script>
+        // Mobile toggle script
+        document.addEventListener("DOMContentLoaded", () => {
+            const menuToggle = document.getElementById("menu-toggle");
+            const nav = document.getElementById("nav");
+
+            menuToggle.addEventListener("click", () => {
+                const isOpen = nav.classList.toggle("open");
+                menuToggle.setAttribute("aria-expanded", isOpen);
+            });
+        });
+
+        // jQuery datepicker for due date fields
         $(function() {
             $("#id_due_date").datepicker({
                 dateFormat: 'yy-mm-dd'
