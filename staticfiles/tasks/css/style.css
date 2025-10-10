@@ -1,841 +1,148 @@
-/* tasks/static/tasks/css/style.css */
+:root {
+    --bg: rgba(255, 255, 255, 0.15);
+    --blur: 12px;
+    --accent: rgba(173, 216, 230, 0.6);
+    --text: #1a1a1a;
+    --muted: #5a5a5a;
+    --border: rgba(255, 255, 255, 0.25);
+}
 
+/* Base styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #cfe9ff, #e6f3ff);
     margin: 0;
-    padding: 0;
-    background: url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4") no-repeat center center fixed;
-    background-size: cover;
-    background-attachment: fixed; 
-    color: #F6FAFD; 
-    line-height: 1.6;
+    color: var(--text);
 }
 
-.container {
-    width: 85%;
-    max-width: 960px;
-    margin: 30px auto;
-    background: rgba(10, 25, 49, 0.5); 
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    color: #F6FAFD; 
-}
-
-h1, h2 {
-    color: #B3CFE5; 
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-a {
-    color: #B3CFE5; 
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #F6FAFD; 
-}
-
-/* Authenticated Navbar (for base.html) */
-.navbar {
-    background: linear-gradient(90deg, rgba(10, 25, 49, 0.9) 0%, rgba(26, 61, 99, 0.9) 100%); /* Darker gradient for navbar */
-    backdrop-filter: blur(8px); 
-    -webkit-backdrop-filter: blur(8px);
-    color: #F6FAFD;
-    padding: 15px 30px; 
+/* Navbar */
+.glassy-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
-    border-bottom: 1px solid rgba(179, 207, 229, 0.1); 
+    padding: 12px 30px;
+    backdrop-filter: blur(var(--blur));
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
-.navbar .logo a {
-    display: block;
-    width: 100%;  
-}
-
-
-.navbar .logo a {
-    color: #B3CFE5; 
-    font-size: 1.8em; 
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(179, 207, 229, 0.5); 
-}
-
-.navbar ul.nav-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px; 
-}
-
-.navbar a,
-.navbar span {
-    color: #F6FAFD;
-    font-weight: bold;
-    font-size: 1.1em;
-    transition: color 0.3s ease, background-color 0.3s ease; 
-}
-
-.navbar a:hover {
-    color: #B3CFE5; 
+.logo a {
+    font-size: 1.4rem;
+    font-weight: 600;
     text-decoration: none;
+    color: var(--text);
 }
 
-.navbar a.navbar-link-btn {
-    background: rgba(179, 207, 229, 0.15); 
-    padding: 10px 20px; 
-    border-radius: 8px; 
-    color: #F6FAFD;
-}
-
-.navbar a.navbar-link-btn:hover {
-    background-color: rgba(74, 127, 167, 0.3); 
-    color: #B3CFE5;
-}
-
-.navbar img {
-    margin-right: 15px; 
-    border-radius: 50%; 
-    border: 2px solid #B3CFE5; 
-    width: 40px; 
-    height: 40px;
-    object-fit: cover; 
-}
-
-/* Specific styles for Public Navbar (for base_public.html) */
-header nav {
+/* Nav */
+.nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background: linear-gradient(90deg, rgba(10, 25, 49, 0.9) 0%, rgba(26, 61, 99, 0.9) 100%);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(179, 207, 229, 0.1);
-}
-
-header .logo a {
-    color: #B3CFE5;
-    font-size: 1.8em;
-    font-weight: bold;
-    text-decoration: none;
-    text-shadow: 0 0 5px rgba(179, 207, 229, 0.5);
-}
-
-header .nav-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
     gap: 20px;
 }
 
-header .nav-links li a {
-    color: #F6FAFD;
+.nav-links a {
+    color: var(--muted);
     text-decoration: none;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background: rgba(179, 207, 229, 0.15); 
-    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-header .nav-links li a:hover {
-    background-color: rgba(74, 127, 167, 0.3);
-    color: #B3CFE5;
-    text-decoration: none;
+.nav-links a:hover {
+    color: var(--text);
 }
 
-/* Messages */
-.message {
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-align: center;
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -5px;
+    height: 2px;
+    background: linear-gradient(90deg, #b3e5fc, #64b5f6);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
 }
 
-.message.success {
-    background-color: rgba(144, 238, 144, 0.2); 
-    color: #90ee90;
-    border: 1px solid rgba(144, 238, 144, 0.3);
+.nav-links a:hover::after {
+    transform: scaleX(1);
 }
 
-.message.error {
-    background-color: rgba(255, 107, 107, 0.2); 
-    color: #ff6b6b;
-    border: 1px solid rgba(255, 107, 107, 0.3);
-}
-
-/* Forms */
-form p {
-    margin-bottom: 15px;
-}
-
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #F6FAFD; 
-}
-
-form input[type="text"],
-form input[type="password"],
-form input[type="email"],
-form input[type="date"],
-form textarea,
-form select {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid rgba(179, 207, 229, 0.3); 
-    border-radius: 5px;
-    font-size: 1em;
-    background: rgba(10, 25, 49, 0.5); 
-    color: #F6FAFD; 
-    outline: none;
-}
-
-form textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-form button[type="submit"] {
-    background-color: #4A7FA7; 
-    color: #F6FAFD; 
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-    margin-top: 15px;
-}
-
-form button[type="submit"]:hover {
-    background-color: #1A3D63; 
-    color: #F6FAFD; 
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Lists (Task/Category List) */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-ul li {
-    background: rgba(179, 207, 229, 0.05); 
-    border: 1px solid rgba(179, 207, 229, 0.1); 
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-ul li strong {
-    color: #B3CFE5; 
-    font-size: 1.2em;
-}
-
-ul li p {
-    margin: 0;
-    color: #F6FAFD; 
-}
-
-ul li a {
+/* Profile section */
+.profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-right: 10px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #4A7FA7; 
-    color: #F6FAFD; 
-    text-decoration: none;
-    align-self: flex-start;
+    border: 1px solid var(--border);
 }
 
-ul li a:hover {
-    background-color: #1A3D63; 
-    color: #F6FAFD;
-    text-decoration: none;
+.username {
+    font-weight: 500;
+    color: var(--text);
 }
 
-/* Specific styles for Delete button */
-ul li a[href*="delete"] {
-    background-color: #dc3545; 
-    color: #F6FAFD;
+/* Toggle button */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-ul li a[href*="delete"]:hover {
-    background-color: #c82333;
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.25);
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        padding: 20px;
+        border-radius: 16px;
+        backdrop-filter: blur(var(--blur));
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .nav.open {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+        color: var(--text);
+    }
+
+    .nav-left {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 }
 
-/* Reminder Styles (Adjusted for consistency) */
-.reminders-section {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.reminder {
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    color: #F6FAFD;
-    background: rgba(10, 25, 49, 0.5); 
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-.reminder h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #B3CFE5; 
-}
-
-.reminder ul {
-    list-style: none;
-    padding: 0;
-}
-
-.reminder li {
-    margin-bottom: 5px;
-    background: transparent; 
-    border: none;
-    padding: 0;
-}
-
-.reminder li a {
-    color: #F6FAFD; 
-    text-decoration: underline;
-    background: transparent; 
-    padding: 0;
-}
-
-.reminder li a:hover {
-    color: #B3CFE5;
-}
-
-.overdue {
-    background-color: rgba(231, 76, 60, 0.6); 
-}
-
-.due-today {
-    background-color: rgba(155, 89, 18, 0.6); 
-}
-
-.due-soon {
-    background-color: rgba(74, 127, 167, 0.6); 
-}
-
-.due-tomorrow {
-    background-color: rgba(155, 89, 182, 0.6);
-}
-
-/* dashboard styles */
-.dashboard-container {
-    display: grid;
-    grid-template-columns: 1fr; 
-    gap: 2rem;
+/* Container */
+.container {
     padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.summary-section h2 {
-    color: #B3CFE5; 
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.summary-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-}
-
-.card {
-    background: rgba(10, 25, 49, 0.5); 
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    color: #F6FAFD;
-    text-align: center;
-}
-
-.card h3 {
-    margin-bottom: 0.5rem;
-    color: #B3CFE5; 
-}
-
-.card p {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #F6FAFD;
-}
-
-.reminders-section h2, .quick-actions h2 {
-    color: #B3CFE5;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.task-list {
-    background: rgba(10, 25, 49, 0.5); 
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    color: #F6FAFD;
-    margin-bottom: 1.5rem;
-}
-
-.task-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.task-list li {
-    background: rgba(179, 207, 229, 0.05);
-    margin-bottom: 0.5rem;
-    padding: 0.8rem;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.task-list li a {
-    color: #B3CFE5; 
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.task-list li a:hover {
-    text-decoration: underline;
-}
-
-.task-list .due-date {
-    font-size: 0.8em;
-    color: #B3CFE5; 
-}
-
-/*------------------------------------*\
-  #AUTHENTICATION FORMS STYLES
-\*------------------------------------*/
-
-/* Wrapper for auth forms to center them */
-.auth-form-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 12rem); 
-}
-
-/* Base style for login/register containers (glass panel effect) */
-.auth-container {
-    background: rgba(10, 25, 49, 0.5); 
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    width: 360px;
-    text-align: center;
-    color: #F6FAFD; 
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
-.auth-container h1 {
-    margin-bottom: 1.5rem;
-    color: #F6FAFD; 
-}
-
-.auth-container label {
-    display: block;
-    text-align: left;
-    margin: 0.5rem 0 0.2rem;
-    font-size: 0.9rem;
-    color: #B3CFE5; 
-}
-
-.auth-container input[type="text"],
-.auth-container input[type="email"],
-.auth-container input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin: 0.4rem 0 1rem;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    background: rgba(10, 25, 49, 0.5); 
-    color: #F6FAFD;
-    outline: none;
-    box-sizing: border-box; 
-}
-
-.auth-container input::placeholder {
-    color: #B3CFE5; 
-}
-
-/* Password strength meter styles */
-#password-strength-bar {
-    height: 8px;
-    border-radius: 5px;
-    transition: width 0.3s ease-in-out;
-    margin-top: -0.5rem;
-    margin-bottom: 1.5rem;
-    background-color: transparent; 
-}
-
-.strength-text {
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-align: right;
-    margin-top: 0.2rem;
-}
-
-.strength-weak { background-color: #ff6b6b; width: 33%; } 
-.strength-moderate { background-color: #f7c94c; width: 66%; } 
-.strength-strong { background-color: #90ee90; width: 100%; } 
-
-/* Checkbox container for "Show Password" */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 1rem;
-}
-
-.checkbox-container input[type="checkbox"] {
-    width: auto;
-    margin-right: 0.5rem;
-}
-
-/* Buttons within auth forms */
-.auth-container button[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    background: #4A7FA7; 
-    color: #F6FAFD; 
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.auth-container button[type="submit"]:hover {
-    background: #1A3D63; 
-    color: #F6FAFD; 
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Message display (success/error) within auth forms */
-.auth-container .message {
-    margin-top: 1rem;
-    font-size: 14px;
-}
-
-.auth-container .message.success {
-    color: #90ee90; 
-}
-
-.auth-container .message.error {
-    color: #ff6b6b; 
-}
-
-/* Auth links (e.g., "Already have an account?") */
-.auth-link {
-    margin-top: 1rem;
-    color: #F6FAFD; 
-    font-size: 0.9rem;
-}
-
-.auth-link a {
-    color: #B3CFE5; 
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.auth-link a:hover {
-    text-decoration: underline;
-}
-
-.field-error {
-    color: #ff6b6b; 
-    font-size: 0.8rem;
-    margin-top: -0.8rem;
-    margin-bottom: 0.5rem;
-    text-align: left;
-}
-
-/*------------------------------------*\
-  #DASHBOARD STYLES
-\*------------------------------------*/
-
-.quick-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.quick-actions .btn {
-    background: #4A7FA7; 
-    color: #F6FAFD; 
-    padding: 12px 25px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.quick-actions .btn:hover {
-    background: #1A3D63; 
-    color: #F6FAFD; 
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Secondary Button Style */
-.btn-secondary {
-    background-color:  #B3CFE5; 
-    color: #0A1931; 
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    display: inline-block; 
-    text-align: center;
-}
-
-.btn-secondary:hover {
-    background-color: #4A7FA7; 
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Navbar Links as Buttons */
-.navbar a.navbar-link-btn {
-    background: rgba(179, 207, 229, 0.1); 
-    padding: 8px 15px;
-    border-radius: 5px;
-    margin: 0 8px; 
-    transition: background-color 0.3s ease, color 0.3s ease;
-    color: #F6FAFD; 
-}
-
-.navbar a.navbar-link-btn:hover {
-    background-color: rgba(74, 127, 167, 0.2); 
-    color: #B3CFE5; 
-    text-decoration: none;
-}
-
-/* Home Page Specific Styles */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    background: rgba(10, 25, 49, 0.6); 
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    margin-bottom: 30px;
-    border-radius: 10px; 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
-}
-
-.hero h2 {
-    color: #B3CFE5; 
-    font-size: 2.8em;
-    margin-bottom: 15px;
-    text-shadow: 0 0 8px rgba(179, 207, 229, 0.7); 
-}
-
-.hero p {
-    color: #F6FAFD; 
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero .btn-secondary {
-    font-size: 1.1em;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-weight: bold;
-}
-
-.features-grid,
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 25px;
-}
-
-.feature-item,
-.testimonial-item {
-    background: rgba(26, 61, 99, 0.6); 
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    color: #F6FAFD;
-}
-
-.feature-item h3,
-.testimonial-item h3 {
-    color: #B3CFE5; 
-    font-size: 1.6em;
-    margin-bottom: 15px;
-}
-
-.feature-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.feature-item p,
-.testimonial-item p {
-    font-size: 1em;
-    line-height: 1.5;
-}
-
-.testimonial-item .author {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #B3CFE5; 
-}
-
-.call-to-action {
-    text-align: center;
-    padding: 50px 20px;
-    margin-top: 30px;
-}
-
-.call-to-action h2 {
-    font-size: 2.2em;
-    margin-bottom: 25px;
-}
-
-.call-to-action .btn-secondary {
-    font-size: 1.1em;
-    padding: 15px 30px;
-    border-radius: 10px;
-}
-
-/* Responsive Design */
-
-/* Mobile devices (max-width: 600px) */
-@media (max-width: 600px) {
-    .container {
-        width: 95%;
-        margin: 15px auto;
-        padding: 15px;
-    }
-
-    .navbar {
-        flex-direction: column;
-        padding: 10px 0;
-    }
-
-    .navbar a, .navbar span {
-        margin: 5px 0;
-        font-size: 1em;
-    }
-
-    form input[type="text"],
-    form input[type="password"],
-    form input[type="email"],
-    form input[type="date"],
-    form textarea,
-    form select {
-        width: calc(100% - 20px);
-        padding: 8px;
-    }
-
-    .task-controls form {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .task-controls form select, .task-controls form input[type="text"] {
-        width: 100%;
-    }
-
-    .task-item {
-        padding: 10px;
-    }
-
-    .task-item div a, .task-item div button {
-        width: 100%;
-        text-align: center;
-        box-sizing: border-box;
-    }
-}
-
-/* Tablet devices (max-width: 900px) */
-@media (min-width: 768px) {
-    .dashboard-container {
-        grid-template-columns: 1fr 2fr;
-    }
-}
-@media (max-width: 900px) {
-    .container {
-        width: 90%;
-        margin: 20px auto;
-        padding: 20px;
-    }
-
-    .navbar a, .navbar span {
-        margin: 0 10px;
-        font-size: 1em;
-    }
-
-    .task-controls form {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .task-controls form > * {
-        flex: 1 1 auto; 
-        min-width: 120px; 
-    }
-
-    .task-controls form button {
-        flex: 0 0 auto;
-    }
-
-    .task-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 }
