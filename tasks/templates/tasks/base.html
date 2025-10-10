@@ -4,66 +4,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Task Manager{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+    <title>{% block title %}Task Manager{% endblock %}</title> <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+    
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <body>
-<header class="navbar glassy-header">
-    <div class="logo">
-        <a href="{% url 'home' %}">Task Manager</a>
-    </div>
-
-    <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">
-        ☰
-    </button>
-
-    <nav id="nav" class="nav">
-        {% if user.is_authenticated %}
-            <div class="nav-left">
-                {% with user.userprofile as profile %}
-                    {% if profile.profile_picture %}
-                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
-                    {% else %}
-                        <img src="{% static 'tasks/images/default_profile.png' %}" alt="Default Profile Picture" class="profile-pic">
-                    {% endif %}
-                {% endwith %}
-                <span class="username">Hello, {{ user.username }}!</span>
+    
+    <header> 
+        <nav>
+            <div class="logo">
+                <a href="{% url 'home' %}" aria-label="Go to Home Page">Task Manager</a> 
             </div>
-            <div class="nav-links">
-                <a href="{% url 'dashboard' %}">Dashboard</a>
-                <a href="{% url 'task_list' %}">Tasks</a>
-                <a href="{% url 'category_list' %}">Categories</a>
-                <a href="{% url 'profile_settings' %}">Profile</a>
-                <a href="{% url 'logout' %}">Logout</a>
-            </div>
-        {% else %}
-            <div class="nav-links">
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'register' %}">Register</a>
+
+            <button class="menu-toggle" aria-label="Toggle navigation" onclick="toggleMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-links" id="navMenu">
+                {% if user.is_authenticated %}
+                    <li class="user-info">
+                        {% with user.userprofile as profile %}
+                            {% if profile.profile_picture %}
+                                <img src="{{ profile.profile_picture.url }}" alt="{{ user.username }}'s profile picture" width="40" height="40"> 
+                            {% else %}
+                                <img src="{% static 'tasks/images/default_profile.png' %}" alt="Default profile picture" width="40" height="40">
+                            {% endif %}
+                        {% endwith %}
+                        <span>Hello, {{ user.username }}!</span>
+                    </li>
+                    <li><a href="{% url 'dashboard' %}" class="navbar-link-btn">Dashboard</a></li>
+                    <li><a href="{% url 'task_list' %}" class="navbar-link-btn">Tasks</a></li>
+                    <li><a href="{% url 'category_list' %}" class="navbar-link-btn">Categories</a></li>
+                    <li><a href="{% url 'profile_settings' %}" class="navbar-link-btn">Profile</a></li>
+                    <li><a href="{% url 'logout' %}" class="navbar-link-btn">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="navbar-link-btn">Login</a></li>
+                    <li><a href="{% url 'register' %}" class="navbar-link-btn">Register</a></li>
+                {% endif %}
+            </ul>
+            </nav>
+    </header> 
+    
+    <div class="container">
+        
+        {% if messages %}
+            <div class="message-wrapper" role="status" aria-live="polite"> {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             </div>
         {% endif %}
-    </nav>
-</header>
 
-<main class="container">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="message {{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-    {% block content %}{% endblock %}
-</main>
+        {% if user.is_authenticated %}
+            <div class="reminders-section" aria-labelledby="reminders-heading">
+                <h2 id="reminders-heading" style="display: none;">Task Reminders</h2> 
+                
+                {% if overdue_tasks %}
+                    <div class="reminder overdue">
+                        <h3>Overdue Tasks:</h3>
+                        <ul>
+                            {% for task in overdue_tasks %}
+                                <li><a href="{% url 'task_detail' task.id %}" aria-label="{{ task.title }} details"><strong>{{ task.title }}</strong></a> (Due: {{ task.due_date }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                {% if tasks_due_today %}
+                    <div class="reminder due-today">
+                        <h3>Tasks Due Today:</h3>
+                        <ul>
+                            {% for task in tasks_due_today %}
+                                <li><a href="{% url 'task_detail' task.id %}" aria-label="{{ task.title }} details"><strong>{{ task.title }}</strong></a> (Priority: {{ task.priority }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                {% if tasks_due_tomorrow %}
+                    <div class="reminder due-tomorrow">
+                        <h3>Tasks Due Tomorrow:</h3>
+                        <ul>
+                            {% for task in tasks_due_tomorrow %}
+                                <li><a href="{% url 'task_detail' task.id %}" aria-label="{{ task.title }} details"><strong>{{ task.title }}</strong></a> (Priority: {{ task.priority }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                {% if tasks_due_soon %}
+                    <div class="reminder due-soon">
+                        <h3>Tasks Due Soon (Next 2-3 Days):</h3>
+                        <ul>
+                            {% for task in tasks_due_soon %}
+                                <li><a href="{% url 'task_detail' task.id %}" aria-label="{{ task.title }} details"><strong>{{ task.title }}</strong></a> (Due: {{ task.due_date }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
-<script>
-    const toggle = document.getElementById("menu-toggle");
-    const nav = document.getElementById("nav");
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+    
+    <script>
+        // JQuery Datepicker Logic
+        $(function() {
+            if ($("#id_due_date").length) {
+                $("#id_due_date").datepicker({
+                    dateFormat: 'yy-mm-dd'
+                });
+            }
+        });
 
-    toggle.addEventListener("click", () => {
-        nav.classList.toggle("open");
-        const expanded = nav.classList.contains("open");
-        toggle.setAttribute("aria-expanded", expanded);
-    });
-</script>
+        // Native JavaScript for Mobile Toggle Menu
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
